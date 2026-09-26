@@ -1,0 +1,38 @@
+// Shared Sass mixins for component modules: `@use "../../styles/mixins";`
+// This partial emits no CSS on its own; the values come from the design
+// tokens (tokens.scss), so mixins only reference `var(--ds-*)`.
+
+// Media queries cannot read CSS custom properties, so the breakpoint lives
+// in Sass. Figma: "Mobile: True when the viewport is <= 768px".
+$breakpoint-mobile: 768px;
+
+// Styles for viewports at or below the mobile breakpoint (desktop-first).
+@mixin mobile {
+  @media (width <= $breakpoint-mobile) {
+    @content;
+  }
+}
+
+// Keyboard focus indicator. Use it inside `:focus-visible` so it shows for
+// keyboard users only:
+//   &:focus-visible { @include mixins.focus-ring; }
+// The offset leaves a gap between the element and the ring (the Figma
+// "double ring").
+@mixin focus-ring {
+  outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color);
+  outline-offset: var(--ds-focus-ring-offset);
+}
+
+// Figma text styles. Font weight is intentionally left out: in Figma the same
+// style is used with different weights, so components set it themselves.
+@mixin text-body-m {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-body-m);
+  line-height: var(--ds-line-height-body);
+}
+
+@mixin text-body-s {
+  font-family: var(--ds-font-family-base);
+  font-size: var(--ds-font-size-body-s);
+  line-height: var(--ds-line-height-body);
+}
