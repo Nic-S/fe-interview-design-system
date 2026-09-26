@@ -7,3 +7,12 @@ updates:
     default-days: 7
   directories:
   - '*'
+  groups:
+    # React requires react and react-dom to have the exact same version:
+    # bump them (and their types) together in a single pull request.
+    react:
+      patterns:
+      - react
+      - react-dom
+      - '@types/react'
+      - '@types/react-dom'
