@@ -1,0 +1,57 @@
+// Design tokens, exposed as CSS custom properties so they can be overridden
+// at runtime (theming). This is a global stylesheet, not a partial: it must be
+// loaded once (library entry and Storybook), never `@use`d by component
+// modules, otherwise `:root` would be emitted again in every module.
+//
+// Color names mirror the Figma variables (e.g. `SurfaceHover` →
+// `--ds-color-surface-hover`) so design and code share the same vocabulary.
+// There is no primitive palette in the Figma file, so semantic tokens hold the
+// hex values directly.
+
+:root {
+  // Color: inverse (dark surfaces, e.g. the selected pill)
+  --ds-color-inverse: #1b2134;
+  --ds-color-inverse-hover: #343a4e;
+  --ds-color-inverse-active: #585d71;
+  --ds-color-on-inverse: #ffffff;
+
+  // Color: neutral surfaces and content
+  --ds-color-on-neutral: #1b2134;
+  --ds-color-surface-hover: #f6f6fa;
+  --ds-color-surface-active: #f1f1f7;
+  --ds-color-surface-high: #f1f1f7;
+
+  // Color: feedback surfaces
+  --ds-color-surface-positive: #b1ffc7;
+  --ds-color-surface-negative: #ffbfb1;
+
+  // Color: outlines
+  --ds-color-outline: #d3d3dc;
+  --ds-color-outline-hover: #c4c5cf;
+
+  // Spacing (Figma "Spacings" table)
+  --ds-space-0: 0;
+  --ds-space-4xs: 2px;
+  --ds-space-3xs: 4px;
+  --ds-space-2xs: 8px;
+  --ds-space-xs: 12px;
+  --ds-space-s: 16px;
+  --ds-space-m: 20px;
+  --ds-space-l: 24px;
+  --ds-space-xl: 32px;
+  --ds-space-2xl: 48px;
+
+  // Typography. Font sizes are in rem so text follows the user's browser
+  // font-size setting (WCAG 1.4.4); 1rem = 16px by default.
+  --ds-font-family-base: "Inter Variable", "Inter", system-ui, sans-serif;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-bold: 700;
+  --ds-font-size-body-m: 0.875rem; // 14px
+  --ds-font-size-body-s: 0.75rem; // 12px
+  --ds-line-height-body: 1.5;
+
+  // Focus ring, shared by every focusable component
+  --ds-focus-ring-color: var(--ds-color-inverse);
+  --ds-focus-ring-width: 2px;
+  --ds-focus-ring-offset: 2px;
+}
