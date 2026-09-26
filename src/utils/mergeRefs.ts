@@ -8,9 +8,9 @@ import type { Ref, RefCallback } from "react";
  * returned their own cleanup get it called, the others are called with `null`,
  * and object refs are reset to `null`.
  *
- * The returned callback is a new function on every call: memoize it in the
- * component (`useMemo(() => mergeRefs(a, b), [b])`) to avoid detaching and
- * re-attaching the refs on every render.
+ * The returned callback is a new function on every call: inside components use
+ * `useMergedRefs`, which memoizes it, to avoid detaching and re-attaching the
+ * refs on every render.
  */
 export function mergeRefs<T>(...refs: Array<Ref<T> | undefined>): RefCallback<T> {
   return (node) => {
