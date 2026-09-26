@@ -36,9 +36,8 @@ jobs:
       - name: Type-check
         run: pnpm tsc
 
-      # TODO(phase 1): drop --passWithNoTests once the first tests exist.
       - name: Test
-        run: pnpm test --passWithNoTests
+        run: pnpm test
 
       - name: Build Storybook
         run: pnpm build-storybook
