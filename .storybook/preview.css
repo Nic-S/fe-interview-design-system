@@ -1,0 +1,6 @@
+/* Base text for the Storybook canvas, so plain text in stories matches the
+   design system. Components set their own typography through the mixins. */
+body {
+  font-family: var(--ds-font-family-base);
+  color: var(--ds-color-on-neutral);
+}

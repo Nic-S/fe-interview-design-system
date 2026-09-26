@@ -43,6 +43,8 @@
 
   // Typography. Font sizes are in rem so text follows the user's browser
   // font-size setting (WCAG 1.4.4); 1rem = 16px by default.
+  // "Inter Variable" is the family registered by @fontsource-variable/inter,
+  // which apps load through the optional `fonts` entry (src/fonts.ts).
   --ds-font-family-base: "Inter Variable", "Inter", system-ui, sans-serif;
   --ds-font-weight-regular: 400;
   --ds-font-weight-bold: 700;
