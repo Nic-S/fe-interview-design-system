@@ -1,6 +1,6 @@
 import { cx } from "../../utils/cx";
+import { useTabsContext } from "./internal/TabsContext";
 import type { TabPanelProps } from "./Tabs.types";
-import { useTabsContext } from "./TabsContext";
 
 /**
  * Content of a tab: place it inside `<Tabs>`, one per `<Tab>`, with the same `value`. The panel element is always rendered (so the tab's

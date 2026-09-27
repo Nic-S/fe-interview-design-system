@@ -2,10 +2,10 @@ import { type KeyboardEvent, useRef } from "react";
 import { useMergedRefs } from "../../hooks/useMergedRefs";
 import { composeEventHandlers } from "../../utils/composeEventHandlers";
 import { cx } from "../../utils/cx";
-import { getOwnTabs } from "./getOwnTabs";
+import { getOwnTabs } from "./internal/getOwnTabs";
+import { TabListContext, useTabsContext } from "./internal/TabsContext";
+import { useTabsDevChecks } from "./internal/useTabsDevChecks";
 import type { TabListProps } from "./Tabs.types";
-import { TabListContext, useTabsContext } from "./TabsContext";
-import { useTabsDevChecks } from "./useTabsDevChecks";
 
 /**
  * Container of the tabs (`role="tablist"`), with the keyboard navigation of

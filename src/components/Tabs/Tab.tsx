@@ -2,9 +2,9 @@ import { use } from "react";
 import { composeEventHandlers } from "../../utils/composeEventHandlers";
 import { cx } from "../../utils/cx";
 import { Badge } from "../Badge";
+import { TabListContext, useTabsContext } from "./internal/TabsContext";
 import styles from "./Tab.module.scss";
 import type { TabProps } from "./Tabs.types";
-import { TabListContext, useTabsContext } from "./TabsContext";
 
 /**
  * A tab: a native button with `role="tab"`. Clicking it selects its value.

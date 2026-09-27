@@ -1,8 +1,8 @@
 import { useId, useMemo } from "react";
 import { useControllableState } from "../../hooks/useControllableState";
 import { cx } from "../../utils/cx";
+import { TabsContext } from "./internal/TabsContext";
 import type { TabsProps } from "./Tabs.types";
-import { TabsContext } from "./TabsContext";
 
 /**
  * Root of the tabs: owns the selected value (controlled or uncontrolled)
