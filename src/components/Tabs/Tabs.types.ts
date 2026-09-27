@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import type { BadgeProps } from "../Badge";
 
 /** Visual variant of the tabs, as in Figma. */
 export type TabsVariant = "pill" | "underline";
@@ -32,3 +33,13 @@ interface TabsUncontrolledProps {
  * (`defaultValue`): one of the two is required, never both.
  */
 export type TabsProps = TabsBaseProps & (TabsControlledProps | TabsUncontrolledProps);
+
+export interface TabProps extends Omit<ComponentProps<"button">, "value" | "type"> {
+  /**
+   * Unique value of the tab. It selects the tab and links it to the TabPanel
+   * with the same value.
+   */
+  value: string;
+  /** Adds a Badge after the label. Same props as `Badge`. */
+  badgeProps?: BadgeProps;
+}

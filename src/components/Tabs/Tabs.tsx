@@ -23,7 +23,20 @@ export function Tabs({
     onChange: onValueChange,
   });
   const baseId = useId();
-  const context = useMemo(() => ({ value, setValue, baseId }), [value, setValue, baseId]);
+  const context = useMemo(
+    () => ({
+      value,
+      setValue,
+      baseId,
+      getIds: (tabValue: string) => {
+        // Escapes spaces (and other unusual characters): ARIA id references are
+        // space-separated lists, so "my files" would be read as two ids.
+        const idPart = encodeURIComponent(tabValue);
+        return { tabId: `${baseId}-tab-${idPart}`, panelId: `${baseId}-panel-${idPart}` };
+      },
+    }),
+    [value, setValue, baseId],
+  );
 
   return (
     <TabsContext value={context}>

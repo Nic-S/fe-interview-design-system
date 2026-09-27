@@ -5,8 +5,10 @@ export interface TabsContextValue {
   value: string | undefined;
   /** Selects a tab (updates the state if uncontrolled, calls onValueChange). */
   setValue: (value: string) => void;
-  /** Unique prefix for the ids that link each Tab to its Panel. */
+  /** Unique id of this Tabs instance (also marks its tabs, see TabList). */
   baseId: string;
+  /** Ids that link the Tab and the TabPanel with the given value. */
+  getIds: (value: string) => { tabId: string; panelId: string };
 }
 
 export const TabsContext = createContext<TabsContextValue | null>(null);
