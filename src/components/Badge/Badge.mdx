@@ -1,0 +1,81 @@
+import { ArgTypes, Canvas, Meta, Primary, Title } from "@storybook/addon-docs/blocks";
+import * as BadgeStories from "./Badge.stories";
+
+<Meta of={BadgeStories} />
+
+<Title />
+
+A short label that adds context to another element: in this design system, mainly to a [Tab](?path=/docs/components-tabs--docs).
+
+<Primary />
+
+## Design guideline
+
+### Usage
+
+- Add short, contextual information to another element, e.g. a warning on the "Files" tab.
+- Keep the label to one or two words.
+
+### Behavior
+
+- Three variants, as in Figma: **neutral** (default), **positive** and **negative**.
+- At viewport widths up to **768px** it uses smaller padding and radius.
+- It is not interactive: not focusable, no role. Screen readers read its text as part of the surrounding content.
+
+<Canvas of={BadgeStories.Variants} />
+
+### Best practices
+
+- The label must carry the meaning on its own: color alone is not enough ([WCAG 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color)). Write "Warning", don't rely on a red badge.
+- Don't use a badge as a button or a link.
+
+## Tech guideline
+
+### Import
+
+```tsx
+import { Badge } from "<design-system>";
+```
+
+### Props
+
+Native `<span>` props, `ref` and `className` are passed through; `className` is merged with the badge's own classes.
+
+<ArgTypes of={BadgeStories} />
+
+### Usage example
+
+```tsx
+<Badge label="Warning" variant="negative" />
+```
+
+In a tab, use the Tab's `badgeProps` instead: it takes the same props.
+
+### Anatomy and customization
+
+The badge renders a `<span>` with:
+
+| Hook | Values | Use |
+|---|---|---|
+| `.ds-Badge` | — | Stable class to target the badge from app styles |
+| `data-variant` | `neutral`, `positive`, `negative` | Variant, e.g. `.checkout .ds-Badge[data-variant="negative"]` |
+
+Internal CSS Module classes are hashed and not part of the API.
+
+### Tokens
+
+| Property | Desktop | Mobile (≤ 768px) |
+|---|---|---|
+| Background | `--ds-color-surface-high` / `-positive` / `-negative` | same |
+| Text | `--ds-color-on-neutral`, Body S (`--ds-font-size-body-s`), Bold | same |
+| Padding (block / inline) | `--ds-space-3xs` / `--ds-space-2xs` (4px / 8px) | `--ds-space-4xs` / `--ds-space-3xs` (2px / 4px) |
+| Radius | 12px | 8px |
+
+Padding and radius are component tokens (`--badge-padding-block`, `--badge-padding-inline`, `--badge-radius`), so the mobile rule only changes values.
+
+## Accessibility
+
+- **No live region:** the badge has no `role="status"`, so changes are not announced. If an app needs an announcement (e.g. a counter that updates), it should add it where the change happens.
+- **Contrast:** 14.21:1 (neutral), 13.70:1 (positive), 10.15:1 (negative), see [Foundations / Colors](?path=/docs/foundations-colors--docs).
+
+[Figma: Badge](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/?node-id=47-677)

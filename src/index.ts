@@ -4,3 +4,5 @@
 
 // Design tokens: loaded once, together with the components.
 import "./styles/tokens.scss";
+
+export { BADGE_VARIANTS, Badge, type BadgeProps, type BadgeVariant } from "./components/Badge";

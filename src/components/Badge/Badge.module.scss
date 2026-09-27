@@ -1,0 +1,37 @@
+@use "../../styles/mixins";
+
+.badge {
+  // Component tokens: desktop values, overridden below for mobile.
+  --badge-padding-block: var(--ds-space-3xs);
+  --badge-padding-inline: var(--ds-space-2xs);
+  --badge-radius: 12px;
+
+  @include mixins.text-body-s;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--badge-padding-block) var(--badge-padding-inline);
+  border-radius: var(--badge-radius);
+  background: var(--badge-background);
+  color: var(--ds-color-on-neutral);
+  font-weight: var(--ds-font-weight-bold);
+  white-space: nowrap;
+
+  @include mixins.mobile {
+    --badge-padding-block: var(--ds-space-4xs);
+    --badge-padding-inline: var(--ds-space-3xs);
+    --badge-radius: 8px;
+  }
+
+  // Variants (BadgeVariant in Badge.types.ts)
+  &[data-variant="neutral"] {
+    --badge-background: var(--ds-color-surface-high);
+  }
+
+  &[data-variant="positive"] {
+    --badge-background: var(--ds-color-surface-positive);
+  }
+
+  &[data-variant="negative"] {
+    --badge-background: var(--ds-color-surface-negative);
+  }
+}

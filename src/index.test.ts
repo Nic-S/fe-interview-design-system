@@ -6,6 +6,11 @@ import * as publicApi from "./index";
 // guarded by the explicit export list in index.ts and by the type-check.
 describe("public API", () => {
   it("exports only the intended values", () => {
-    expect(Object.keys(publicApi).sort()).toMatchInlineSnapshot(`[]`);
+    expect(Object.keys(publicApi).sort()).toMatchInlineSnapshot(`
+      [
+        "BADGE_VARIANTS",
+        "Badge",
+      ]
+    `);
   });
 });
