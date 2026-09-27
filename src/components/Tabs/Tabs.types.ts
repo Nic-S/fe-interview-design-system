@@ -54,3 +54,9 @@ export interface TabPanelProps extends ComponentProps<"div"> {
    */
   keepMounted?: boolean;
 }
+
+/**
+ * The tablist needs an accessible name: pass `aria-label` or
+ * `aria-labelledby`, otherwise screen readers only announce "tablist".
+ */
+export type TabListProps = ComponentProps<"div">;

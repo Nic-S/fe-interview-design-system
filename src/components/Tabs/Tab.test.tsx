@@ -2,12 +2,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef, type ReactNode } from "react";
 import { Tab } from "./Tab";
+import { TabList } from "./TabList";
 import { Tabs } from "./Tabs";
 
 const renderInTabs = (children: ReactNode, onValueChange = vi.fn()) =>
   render(
     <Tabs defaultValue="emails" onValueChange={onValueChange}>
-      {children}
+      <TabList aria-label="Inbox">{children}</TabList>
     </Tabs>,
   );
 
@@ -78,6 +79,21 @@ describe("Tab", () => {
 
     const files = tab("Files, Warning");
     expect(files.querySelector(".ds-Badge")).toHaveAttribute("data-variant", "negative");
+  });
+
+  it("throws a clear error when used outside TabList", () => {
+    // React also logs the error thrown during render: expected here.
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    expect(() =>
+      render(
+        <Tabs defaultValue="emails">
+          <Tab value="emails">Emails</Tab>
+        </Tabs>,
+      ),
+    ).toThrow("<Tab> must be used within <TabList>.");
+
+    consoleError.mockRestore();
   });
 
   it("merges className and passes native props and the ref", () => {

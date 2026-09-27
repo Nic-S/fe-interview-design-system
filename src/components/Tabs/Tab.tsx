@@ -1,9 +1,10 @@
+import { use } from "react";
 import { composeEventHandlers } from "../../utils/composeEventHandlers";
 import { cx } from "../../utils/cx";
 import { Badge } from "../Badge";
 import styles from "./Tab.module.scss";
 import type { TabProps } from "./Tabs.types";
-import { useTabsContext } from "./TabsContext";
+import { TabListContext, useTabsContext } from "./TabsContext";
 
 /**
  * A tab: a native button with `role="tab"`. Clicking it selects its value.
@@ -12,6 +13,11 @@ import { useTabsContext } from "./TabsContext";
  */
 export function Tab({ value, badgeProps, className, children, onClick, ref, ...rest }: TabProps) {
   const { value: selectedValue, setValue, baseId, getIds } = useTabsContext("Tab");
+  // Structural, like using a Tab outside Tabs: without a tablist the tab is
+  // not accessible (no parent role, no keyboard navigation, no list name).
+  if (!use(TabListContext)) {
+    throw new Error("<Tab> must be used within <TabList>.");
+  }
   const isSelected = value === selectedValue;
   const { tabId, panelId } = getIds(value);
 

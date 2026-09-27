@@ -2,14 +2,17 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef, type ReactNode } from "react";
 import { Tab } from "./Tab";
+import { TabList } from "./TabList";
 import { TabPanel } from "./TabPanel";
 import { Tabs } from "./Tabs";
 
 const renderInbox = (panels: ReactNode) =>
   render(
     <Tabs defaultValue="emails">
-      <Tab value="emails">Emails</Tab>
-      <Tab value="files">Files</Tab>
+      <TabList aria-label="Inbox">
+        <Tab value="emails">Emails</Tab>
+        <Tab value="files">Files</Tab>
+      </TabList>
       {panels}
     </Tabs>,
   );

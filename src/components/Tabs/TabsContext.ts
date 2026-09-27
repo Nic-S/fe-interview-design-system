@@ -13,6 +13,9 @@ export interface TabsContextValue {
 
 export const TabsContext = createContext<TabsContextValue | null>(null);
 
+/** True inside a TabList: a Tab outside it would be an orphan `role="tab"`. */
+export const TabListContext = createContext(false);
+
 /**
  * Reads the Tabs context. Throws if the component is rendered outside
  * `<Tabs>`: that is a structural mistake, not something to recover from.

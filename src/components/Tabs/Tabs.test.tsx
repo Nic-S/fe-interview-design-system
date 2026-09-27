@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import axe from "axe-core";
 import { createRef, useState } from "react";
 import { Tab } from "./Tab";
+import { TabList } from "./TabList";
 import { TabPanel } from "./TabPanel";
 import { Tabs } from "./Tabs";
 
@@ -50,8 +51,10 @@ describe("Tabs", () => {
       const onValueChange = vi.fn();
       render(
         <Tabs defaultValue="emails" onValueChange={onValueChange}>
-          <Tab value="emails">Emails</Tab>
-          <Tab value="files">Files</Tab>
+          <TabList aria-label="Inbox">
+            <Tab value="emails">Emails</Tab>
+            <Tab value="files">Files</Tab>
+          </TabList>
         </Tabs>,
       );
       expect(tab("Emails")).toHaveAttribute("aria-selected", "true");
@@ -68,7 +71,9 @@ describe("Tabs", () => {
       const onValueChange = vi.fn();
       render(
         <Tabs defaultValue="emails" onValueChange={onValueChange}>
-          <Tab value="emails">Emails</Tab>
+          <TabList aria-label="Inbox">
+            <Tab value="emails">Emails</Tab>
+          </TabList>
         </Tabs>,
       );
 
@@ -84,8 +89,10 @@ describe("Tabs", () => {
       const onValueChange = vi.fn();
       render(
         <Tabs value="emails" onValueChange={onValueChange}>
-          <Tab value="emails">Emails</Tab>
-          <Tab value="files">Files</Tab>
+          <TabList aria-label="Inbox">
+            <Tab value="emails">Emails</Tab>
+            <Tab value="files">Files</Tab>
+          </TabList>
         </Tabs>,
       );
 
@@ -102,8 +109,10 @@ describe("Tabs", () => {
         return (
           <>
             <Tabs value={value} onValueChange={setValue}>
-              <Tab value="emails">Emails</Tab>
-              <Tab value="files">Files</Tab>
+              <TabList aria-label="Inbox">
+                <Tab value="emails">Emails</Tab>
+                <Tab value="files">Files</Tab>
+              </TabList>
             </Tabs>
             <button type="button" onClick={() => setValue("files")}>
               Show attachments
@@ -123,10 +132,14 @@ describe("Tabs", () => {
     render(
       <>
         <Tabs defaultValue="emails">
-          <Tab value="emails">Emails</Tab>
+          <TabList aria-label="Inbox">
+            <Tab value="emails">Emails</Tab>
+          </TabList>
         </Tabs>
         <Tabs defaultValue="emails">
-          <Tab value="emails">Emails</Tab>
+          <TabList aria-label="Inbox">
+            <Tab value="emails">Emails</Tab>
+          </TabList>
         </Tabs>
       </>,
     );
@@ -147,15 +160,14 @@ describe("Tabs", () => {
   });
 
   it("has no accessibility violations when composed", async () => {
-    // TODO(3d): replace the plain tablist div with TabList.
     const { container } = render(
       <Tabs defaultValue="files">
-        <div role="tablist" aria-label="Inbox">
+        <TabList aria-label="Inbox">
           <Tab value="emails">Emails</Tab>
           <Tab value="files" badgeProps={{ label: "Warning", variant: "negative" }}>
             Files
           </Tab>
-        </div>
+        </TabList>
         <TabPanel value="emails">Inbox content</TabPanel>
         <TabPanel value="files">Attachments</TabPanel>
       </Tabs>,
