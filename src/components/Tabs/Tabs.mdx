@@ -1,0 +1,100 @@
+import { ArgTypes, Canvas, Meta, Primary, Title } from "@storybook/addon-docs/blocks";
+import * as TabsStories from "./Tabs.stories";
+
+<Meta of={TabsStories} />
+
+<Title />
+
+Tabs organize related content at the same level and let users switch between views without leaving the page.
+
+<Primary />
+
+## Design guideline
+
+### Usage
+
+- Divide content that is **at the same level of importance** into views the user can switch between.
+- Every tab needs a short label that sums up its content.
+
+### Behavior
+
+- Selecting a tab shows its panel and hides the others.
+- Two variants, as in Figma: **pill** (default) and **underline**. All the tabs of a list share the variant.
+- A tab can show a [Badge](?path=/docs/components-badge--docs) after its label, e.g. a warning on "Files".
+
+### Best practices
+
+- Use tabs with **at least two** items. With a single one, prefer a heading.
+- Keep labels short (one or two words).
+- Don't use tabs for sequential steps (use a stepper) or to navigate between pages (use links in a `<nav>`, with `aria-current="page"`).
+
+## Tech guideline
+
+### Import
+
+```tsx
+import { Tab, TabList, TabPanel, Tabs } from "<design-system>";
+```
+
+### Anatomy
+
+| Part | Element | Role | Place it |
+|---|---|---|---|
+| `Tabs` | `div.ds-Tabs` | — | Root: owns the selected value |
+| `TabList` | `div.ds-TabList` | `tablist` | Inside `Tabs`, around the tabs. Needs `aria-label` or `aria-labelledby` |
+| `Tab` | `button.ds-Tab` | `tab` | Inside `TabList` |
+| `TabPanel` | `div.ds-TabPanel` | `tabpanel` | Inside `Tabs`, one per `Tab`, with the same `value` |
+
+The structure is enforced: a part outside `Tabs`, or a `Tab` outside `TabList`, throws an error.
+
+### Uncontrolled and controlled
+
+**Uncontrolled** (`defaultValue`): Tabs remembers the selected tab. `onValueChange` is optional.
+
+```tsx
+<Tabs defaultValue="emails" onValueChange={trackTabChange}>…</Tabs>
+```
+
+**Controlled** (`value` + `onValueChange`, both required): the parent owns the state, e.g. to sync it with the URL or to change it from outside.
+
+```tsx
+const [tab, setTab] = useState("emails");
+<Tabs value={tab} onValueChange={setTab}>…</Tabs>
+```
+
+`value` and `defaultValue` are mutually exclusive (checked by TypeScript). A component should not switch between the two modes during its lifetime.
+
+<Canvas of={TabsStories.Controlled} />
+
+### Props
+
+<ArgTypes of={TabsStories} />
+
+### Panels
+
+- The panel element is always rendered and hidden while its tab is not selected; its **content** is mounted only while selected. Use `keepMounted` to keep it (and its state, e.g. a half-filled form) mounted while hidden.
+- Panels are focusable (`tabIndex={0}`), so keyboard users reach content without focusable elements. If a panel **starts with a focusable element** (a field, a button), pass `tabIndex={-1}` to avoid an extra Tab stop.
+
+## Accessibility
+
+Implements the [WAI-ARIA Tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) with automatic activation.
+
+### Keyboard
+
+| Key | Action |
+|---|---|
+| <kbd>Tab</kbd> | Enters the tablist on the selected tab; from a tab, moves to the panel |
+| <kbd>→</kbd> / <kbd>←</kbd> | Selects the next / previous tab, wrapping around |
+| <kbd>Home</kbd> / <kbd>End</kbd> | Selects the first / last tab |
+
+### Screen readers
+
+- The tablist is announced with its name (`aria-label`), each tab with its label and position ("Files, Warning, tab, 2 of 5").
+- The badge is part of the tab's name, after a pause: "Files, Warning".
+- Each panel is labelled by its tab.
+
+### Development checks
+
+In development, these mistakes are reported with `console.error`: a tablist without a name, duplicate tab values, a selected value that matches no tab.
+
+[Figma: Tab and Tabs](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/?node-id=47-678)

@@ -10,6 +10,10 @@ describe("public API", () => {
       [
         "BADGE_VARIANTS",
         "Badge",
+        "Tab",
+        "TabList",
+        "TabPanel",
+        "Tabs",
       ]
     `);
   });

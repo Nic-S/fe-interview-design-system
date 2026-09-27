@@ -6,3 +6,14 @@
 import "./styles/tokens.scss";
 
 export { BADGE_VARIANTS, Badge, type BadgeProps, type BadgeVariant } from "./components/Badge";
+export {
+  Tab,
+  TabList,
+  type TabListProps,
+  TabPanel,
+  type TabPanelProps,
+  type TabProps,
+  Tabs,
+  type TabsProps,
+  type TabsVariant,
+} from "./components/Tabs";

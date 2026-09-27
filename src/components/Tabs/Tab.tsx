@@ -10,6 +10,8 @@ import { TabListContext, useTabsContext } from "./TabsContext";
  * A tab: a native button with `role="tab"`. Clicking it selects its value.
  * Only the selected tab is in the Tab sequence (roving tabindex); TabList
  * moves the focus between tabs with the arrow keys.
+ *
+ * Place it inside `<TabList>`; the `<TabPanel>` with the same `value` shows its content.
  */
 export function Tab({ value, badgeProps, className, children, onClick, ref, ...rest }: TabProps) {
   const { value: selectedValue, setValue, baseId, getIds } = useTabsContext("Tab");

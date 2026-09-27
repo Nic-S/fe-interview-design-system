@@ -13,6 +13,9 @@ import { useTabsDevChecks } from "./useTabsDevChecks";
  * around), Home/End to the first/last one, and the focused tab is selected at
  * once (automatic activation). Tabs are read from the DOM, so the order is
  * always the rendered one.
+ *
+ * Place it inside `<Tabs>`, with the `<Tab>`s as children, and give it a name
+ * with `aria-label` or `aria-labelledby`.
  */
 export function TabList({ className, onKeyDown, ref, children, ...rest }: TabListProps) {
   const { value, setValue, baseId } = useTabsContext("TabList");

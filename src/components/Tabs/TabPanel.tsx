@@ -3,7 +3,7 @@ import type { TabPanelProps } from "./Tabs.types";
 import { useTabsContext } from "./TabsContext";
 
 /**
- * Content of a tab. The panel element is always rendered (so the tab's
+ * Content of a tab: place it inside `<Tabs>`, one per `<Tab>`, with the same `value`. The panel element is always rendered (so the tab's
  * `aria-controls` always points to it) and hidden when its tab is not
  * selected; the content is mounted only while selected, unless `keepMounted`.
  *

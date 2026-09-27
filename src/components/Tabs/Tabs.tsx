@@ -7,6 +7,16 @@ import { TabsContext } from "./TabsContext";
 /**
  * Root of the tabs: owns the selected value (controlled or uncontrolled)
  * and shares it with `TabList`, `Tab` and `TabPanel` through context.
+ *
+ * @example
+ * <Tabs defaultValue="emails">
+ *   <TabList aria-label="Inbox">
+ *     <Tab value="emails">Emails</Tab>
+ *     <Tab value="files" badgeProps={{ label: "Warning", variant: "negative" }}>Files</Tab>
+ *   </TabList>
+ *   <TabPanel value="emails">…</TabPanel>
+ *   <TabPanel value="files">…</TabPanel>
+ * </Tabs>
  */
 export function Tabs({
   value: controlledValue,
