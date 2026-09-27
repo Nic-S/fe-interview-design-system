@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import axe from "axe-core";
 import { createRef, useState } from "react";
 import { Tab } from "./Tab";
+import { TabPanel } from "./TabPanel";
 import { Tabs } from "./Tabs";
 
 const tab = (name: string) => screen.getByRole("tab", { name });
@@ -142,6 +144,25 @@ describe("Tabs", () => {
     );
 
     consoleError.mockRestore();
+  });
+
+  it("has no accessibility violations when composed", async () => {
+    // TODO(3d): replace the plain tablist div with TabList.
+    const { container } = render(
+      <Tabs defaultValue="files">
+        <div role="tablist" aria-label="Inbox">
+          <Tab value="emails">Emails</Tab>
+          <Tab value="files" badgeProps={{ label: "Warning", variant: "negative" }}>
+            Files
+          </Tab>
+        </div>
+        <TabPanel value="emails">Inbox content</TabPanel>
+        <TabPanel value="files">Attachments</TabPanel>
+      </Tabs>,
+    );
+
+    const { violations } = await axe.run(container);
+    expect(violations).toEqual([]);
   });
 
   it("requires value + onValueChange or defaultValue, never both (type-checked)", () => {

@@ -10,13 +10,14 @@ import { useTabsContext } from "./TabsContext";
  * Only the selected tab is in the Tab sequence (roving tabindex); TabList
  * moves the focus between tabs with the arrow keys.
  */
-export function Tab({ value, badgeProps, className, children, onClick, ...rest }: TabProps) {
+export function Tab({ value, badgeProps, className, children, onClick, ref, ...rest }: TabProps) {
   const { value: selectedValue, setValue, baseId, getIds } = useTabsContext("Tab");
   const isSelected = value === selectedValue;
   const { tabId, panelId } = getIds(value);
 
   return (
     <button
+      ref={ref}
       {...rest}
       type="button"
       role="tab"

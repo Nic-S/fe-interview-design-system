@@ -15,6 +15,7 @@ export function Tabs({
   variant = "pill",
   className,
   children,
+  ref,
   ...rest
 }: TabsProps) {
   const [value, setValue] = useControllableState({
@@ -40,7 +41,7 @@ export function Tabs({
 
   return (
     <TabsContext value={context}>
-      <div {...rest} className={cx("ds-Tabs", className)} data-variant={variant}>
+      <div ref={ref} {...rest} className={cx("ds-Tabs", className)} data-variant={variant}>
         {children}
       </div>
     </TabsContext>

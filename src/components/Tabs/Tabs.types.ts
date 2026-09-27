@@ -43,3 +43,14 @@ export interface TabProps extends Omit<ComponentProps<"button">, "value" | "type
   /** Adds a Badge after the label. Same props as `Badge`. */
   badgeProps?: BadgeProps;
 }
+
+export interface TabPanelProps extends ComponentProps<"div"> {
+  /** Value of the Tab this panel belongs to. */
+  value: string;
+  /**
+   * Keeps the content mounted (and hidden) while the tab is not selected,
+   * preserving its state (form input, scroll, loaded data).
+   * @defaultValue false
+   */
+  keepMounted?: boolean;
+}
