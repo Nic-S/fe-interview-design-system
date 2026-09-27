@@ -1,0 +1,27 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorPalette } from "./components/ColorPalette";
+import { ContrastTable } from "./components/ContrastTable";
+
+<Meta title="Foundations/Colors" />
+
+# Colors
+
+Color tokens are **semantic**: the name says what a color is *for* (a surface, the content on it, an outline), not what it looks like.
+They use the same names as the Figma variables (`SurfaceHover` → `--ds-color-surface-hover`), so design and code share one vocabulary.
+
+The Figma file has no primitive palette, so the tokens hold the hex values directly.
+Different roles can share a value on purpose: `Inverse` and `OnNeutral` are both `#1b2134`, one as a background and one as text, so they can change independently.
+
+Everything on this page is read from the loaded stylesheet (`src/styles/tokens.scss`): adding a token there makes it appear here.
+
+## Palette
+
+<ColorPalette />
+
+## Contrast
+
+WCAG contrast of the color pairs used by the components, computed from the tokens.
+Text needs at least **4.5:1** ([WCAG 1.4.3](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum)),
+graphical objects needed to understand a component **3:1** ([WCAG 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast)).
+
+<ContrastTable />

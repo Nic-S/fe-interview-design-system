@@ -8,6 +8,11 @@ import "./preview.css";
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ["Introduction", "Foundations", ["Colors", "Typography", "Spacing"], "*"],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

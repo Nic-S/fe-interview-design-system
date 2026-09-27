@@ -1,0 +1,25 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { TextStyles, TypographyTokens } from "./components/Typography";
+
+<Meta title="Foundations/Typography" />
+
+# Typography
+
+The design system uses **Inter**. The tokens declare the font family; apps load the font, for example with the optional self-hosted entry:
+
+```ts
+import "<design-system>/fonts"; // @fontsource-variable/inter, an optional peer dependency
+```
+
+## Text styles
+
+The Figma text styles are Sass mixins: `@include mixins.text-body-m` sets family, size and line height.
+The **weight is not part of the style**: in Figma the same style is used with different weights, so components set it themselves (tabs and badges use Bold).
+
+<TextStyles />
+
+## Tokens
+
+Font sizes are in `rem`, so text follows the size chosen in the browser settings ([WCAG 1.4.4](https://www.w3.org/WAI/WCAG22/Understanding/resize-text)): `0.875rem` is 14px and `0.75rem` is 12px at the default 16px.
+
+<TypographyTokens />

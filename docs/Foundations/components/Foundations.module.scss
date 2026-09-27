@@ -1,0 +1,63 @@
+@use "../../../src/styles/mixins";
+
+// Styles for the Foundations documentation pages (not part of the design system).
+
+.table {
+  @include mixins.text-body-m;
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: var(--ds-space-2xs) var(--ds-space-xs);
+    border-bottom: 1px solid var(--ds-color-outline);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: var(--ds-font-weight-bold);
+  }
+}
+
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+}
+
+.swatch {
+  display: block;
+  width: 48px;
+  height: 32px;
+  border: 1px solid var(--ds-color-outline);
+  border-radius: 6px;
+}
+
+.sample {
+  display: inline-block;
+  padding: var(--ds-space-3xs) var(--ds-space-xs);
+  border: 1px solid var(--ds-color-outline);
+  border-radius: 6px;
+  font-weight: var(--ds-font-weight-bold);
+}
+
+.pass {
+  font-weight: var(--ds-font-weight-bold);
+  color: #0a7a3a;
+}
+
+.info {
+  color: #5b5f6e;
+}
+
+.specimen {
+  margin: 0;
+}
+
+.bar {
+  display: block;
+  height: 16px;
+  min-width: 1px;
+  background: var(--ds-color-inverse);
+  border-radius: 2px;
+}
