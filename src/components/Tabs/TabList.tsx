@@ -5,6 +5,7 @@ import { cx } from "../../utils/cx";
 import { getOwnTabs } from "./internal/getOwnTabs";
 import { TabListContext, useTabsContext } from "./internal/TabsContext";
 import { useTabsDevChecks } from "./internal/useTabsDevChecks";
+import styles from "./TabList.module.scss";
 import type { TabListProps } from "./Tabs.types";
 
 /**
@@ -48,7 +49,7 @@ export function TabList({ className, onKeyDown, ref, children, ...rest }: TabLis
         ref={mergedRef}
         {...rest}
         role="tablist"
-        className={cx("ds-TabList", className)}
+        className={cx(styles.list, "ds-TabList", className)}
         data-variant={variant}
         onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
       >

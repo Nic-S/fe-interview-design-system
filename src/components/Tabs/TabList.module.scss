@@ -1,0 +1,42 @@
+@use "../../styles/mixins";
+
+.list {
+  // Room for the focus ring, which overflow-x: auto would clip (WCAG 2.4.7):
+  // the padding makes room for it, the negative margin keeps the outer layout.
+  --tab-list-ring-room: calc(var(--ds-focus-ring-width) + var(--ds-focus-ring-offset));
+  --tab-list-gap: 0px;
+
+  display: flex;
+  gap: var(--tab-list-gap);
+  margin: calc(-1 * var(--tab-list-ring-room));
+  padding: var(--tab-list-ring-room);
+  // One row that scrolls when the tabs don't fit: wrapping would confuse the
+  // reading order and the arrow keys.
+  overflow-x: auto;
+  // Hidden, as in the design: it still scrolls with touch, trackpad,
+  // Shift + wheel and the keyboard (the focused tab is scrolled into view).
+  scrollbar-width: none;
+
+  // Safari before 18.2 has no scrollbar-width.
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // Figma: Tabs, Variant=Pill
+  &:where([data-variant="pill"]) {
+    --tab-list-gap: var(--ds-space-xs);
+
+    @include mixins.mobile {
+      --tab-list-gap: var(--ds-space-2xs);
+    }
+  }
+
+  // Figma: Tabs, Variant=Underline
+  &:where([data-variant="underline"]) {
+    --tab-list-gap: var(--ds-space-xl);
+
+    @include mixins.mobile {
+      --tab-list-gap: var(--ds-space-l);
+    }
+  }
+}
