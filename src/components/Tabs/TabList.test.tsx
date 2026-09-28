@@ -165,6 +165,59 @@ describe("TabList", () => {
     });
   });
 
+  describe("selected tab in view", () => {
+    // jsdom has no layout: a 100px list with 60px tabs side by side, moved by
+    // the list's scrollLeft like in a browser.
+    let rectSpy: ReturnType<typeof vi.spyOn>;
+
+    beforeEach(() => {
+      rectSpy = vi
+        .spyOn(HTMLElement.prototype, "getBoundingClientRect")
+        .mockImplementation(function (this: HTMLElement) {
+          const list = this.closest<HTMLElement>('[role="tablist"]');
+          const index = [...(list?.querySelectorAll('[role="tab"]') ?? [])].indexOf(this);
+          const left = index === -1 ? 0 : index * 60 - (list?.scrollLeft ?? 0);
+          const width = index === -1 ? 100 : 60;
+          return { left, right: left + width, width, x: left } as DOMRect;
+        });
+    });
+
+    afterEach(() => {
+      rectSpy.mockRestore();
+    });
+
+    function Inbox({ value }: { value: string }) {
+      return (
+        <Tabs value={value} onValueChange={() => {}}>
+          <TabList aria-label="Inbox">
+            <Tab value="emails">Emails</Tab>
+            <Tab value="files">Files</Tab>
+            <Tab value="edits">Edits</Tab>
+          </TabList>
+        </Tabs>
+      );
+    }
+
+    it("scrolls the list to show the tab selected at mount", () => {
+      render(<Inbox value="edits" />);
+
+      // Edits spans 120-180px: the list scrolls by 80px to show its end.
+      expect(screen.getByRole("tablist").scrollLeft).toBe(80);
+    });
+
+    it("follows a value changed from outside, in both directions", () => {
+      const { rerender } = render(<Inbox value="emails" />);
+      const list = screen.getByRole("tablist");
+      expect(list.scrollLeft).toBe(0);
+
+      rerender(<Inbox value="edits" />);
+      expect(list.scrollLeft).toBe(80);
+
+      rerender(<Inbox value="emails" />);
+      expect(list.scrollLeft).toBe(0);
+    });
+  });
+
   describe("development checks", () => {
     let consoleError: ReturnType<typeof vi.spyOn>;
 
