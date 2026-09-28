@@ -62,6 +62,22 @@ describe("TabPanel", () => {
     expect(panelOf("Emails")).not.toHaveAttribute("data-selected");
   });
 
+  it("hides an unselected panel with an inline display: none, over the consumer's display", () => {
+    renderInbox(
+      <>
+        <TabPanel value="emails" style={{ display: "flex", marginTop: 8 }}>
+          Inbox content
+        </TabPanel>
+        <TabPanel value="files" style={{ display: "flex", marginTop: 8 }} keepMounted>
+          Attachments
+        </TabPanel>
+      </>,
+    );
+
+    expect(panelOf("Emails")).toHaveStyle({ display: "flex", marginTop: "8px" });
+    expect(panelOf("Files")).toHaveStyle({ display: "none", marginTop: "8px" });
+  });
+
   it("keeps the panel element but mounts the content only while selected", () => {
     renderInbox(<TabPanel value="files">Attachments</TabPanel>);
 

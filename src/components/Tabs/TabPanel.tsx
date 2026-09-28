@@ -1,11 +1,15 @@
 import { cx } from "../../utils/cx";
 import { useTabsContext } from "./internal/TabsContext";
+import styles from "./TabPanel.module.scss";
 import type { TabPanelProps } from "./Tabs.types";
 
 /**
  * Content of a tab: place it inside `<Tabs>`, one per `<Tab>`, with the same `value`. The panel element is always rendered (so the tab's
  * `aria-controls` always points to it) and hidden when its tab is not
  * selected; the content is mounted only while selected, unless `keepMounted`.
+ *
+ * A hidden panel also gets `display: none` inline, so a `display` set by a
+ * stylesheet (e.g. `display: flex` through `className`) never shows it.
  *
  * It is focusable by default (`tabIndex={0}`) so keyboard users can reach
  * content without focusable elements; pass `tabIndex={-1}` when the panel
@@ -15,6 +19,7 @@ export function TabPanel({
   value,
   keepMounted = false,
   className,
+  style,
   children,
   ref,
   ...rest
@@ -33,7 +38,10 @@ export function TabPanel({
       id={panelId}
       aria-labelledby={tabId}
       hidden={!isSelected}
-      className={cx("ds-TabPanel", className)}
+      // `hidden` alone loses against any stylesheet that sets `display`: an inline
+      // style wins over every selector, with no !important in our CSS.
+      style={isSelected ? style : { ...style, display: "none" }}
+      className={cx(styles.panel, "ds-TabPanel", className)}
       data-selected={isSelected ? "" : undefined}
     >
       {(isSelected || keepMounted) && children}

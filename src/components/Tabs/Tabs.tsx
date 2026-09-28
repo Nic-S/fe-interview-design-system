@@ -34,7 +34,7 @@ export function Tabs({
     onChange: onValueChange,
   });
   const baseId = useId();
-  const context = useMemo(
+  const contextValue = useMemo(
     () => ({
       value,
       setValue,
@@ -51,7 +51,7 @@ export function Tabs({
   );
 
   return (
-    <TabsContext value={context}>
+    <TabsContext value={contextValue}>
       <div ref={ref} {...rest} className={cx("ds-Tabs", className)} data-variant={variant}>
         {children}
       </div>

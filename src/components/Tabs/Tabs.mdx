@@ -73,6 +73,7 @@ const [tab, setTab] = useState("emails");
 ### Panels
 
 - The panel element is always rendered and hidden while its tab is not selected; its **content** is mounted only while selected. Use `keepMounted` to keep it (and its state, e.g. a half-filled form) mounted while hidden.
+- A hidden panel also gets `display: none` inline, so you can lay out a panel freely (e.g. `display: flex` through `className`): hidden panels stay hidden.
 - Panels are focusable (`tabIndex={0}`), so keyboard users reach content without focusable elements. If a panel **starts with a focusable element** (a field, a button), pass `tabIndex={-1}` to avoid an extra Tab stop.
 
 ## Accessibility

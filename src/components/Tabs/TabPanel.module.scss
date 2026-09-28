@@ -1,0 +1,9 @@
+@use "../../styles/mixins";
+
+.panel {
+  // Focusable by default (tabIndex={0}): the ring of the design system
+  // instead of the browser's default one.
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
