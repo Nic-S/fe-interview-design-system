@@ -45,8 +45,9 @@ export function Tabs({
         const idPart = encodeURIComponent(tabValue);
         return { tabId: `${baseId}-tab-${idPart}`, panelId: `${baseId}-panel-${idPart}` };
       },
+      variant,
     }),
-    [value, setValue, baseId],
+    [value, setValue, baseId, variant],
   );
 
   return (

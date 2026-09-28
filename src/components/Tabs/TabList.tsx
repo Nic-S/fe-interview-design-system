@@ -18,7 +18,7 @@ import type { TabListProps } from "./Tabs.types";
  * with `aria-label` or `aria-labelledby`.
  */
 export function TabList({ className, onKeyDown, ref, children, ...rest }: TabListProps) {
-  const { value, setValue, baseId } = useTabsContext("TabList");
+  const { value, setValue, baseId, variant } = useTabsContext("TabList");
   const listRef = useRef<HTMLDivElement>(null);
   const mergedRef = useMergedRefs(listRef, ref);
   useTabsDevChecks(listRef, baseId, value);
@@ -49,6 +49,7 @@ export function TabList({ className, onKeyDown, ref, children, ...rest }: TabLis
         {...rest}
         role="tablist"
         className={cx("ds-TabList", className)}
+        data-variant={variant}
         onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
       >
         {children}

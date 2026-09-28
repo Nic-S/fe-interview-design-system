@@ -148,6 +148,30 @@ describe("Tabs", () => {
     expect(first.id).not.toBe(second.id);
   });
 
+  it("gives every styled part the variant of its own Tabs, also when nested", () => {
+    render(
+      <Tabs defaultValue="emails">
+        <TabList aria-label="Inbox">
+          <Tab value="emails">Emails</Tab>
+        </TabList>
+        <TabPanel value="emails">
+          <Tabs defaultValue="images" variant="underline">
+            <TabList aria-label="Attachment types">
+              <Tab value="images">Images</Tab>
+            </TabList>
+          </Tabs>
+        </TabPanel>
+      </Tabs>,
+    );
+
+    for (const part of [screen.getByRole("tablist", { name: "Inbox" }), tab("Emails")]) {
+      expect(part).toHaveAttribute("data-variant", "pill");
+    }
+    for (const part of [screen.getByRole("tablist", { name: "Attachment types" }), tab("Images")]) {
+      expect(part).toHaveAttribute("data-variant", "underline");
+    }
+  });
+
   it("throws a clear error when a part is used outside Tabs", () => {
     // React also logs the error thrown during render: expected here.
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});

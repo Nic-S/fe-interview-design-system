@@ -1,4 +1,5 @@
 import { createContext, use } from "react";
+import type { TabsVariant } from "../Tabs.types";
 
 export interface TabsContextValue {
   /** Value of the selected tab. */
@@ -9,6 +10,11 @@ export interface TabsContextValue {
   baseId: string;
   /** Ids that link the Tab and the TabPanel with the given value. */
   getIds: (value: string) => { tabId: string; panelId: string };
+  /**
+   * Rendered as `data-variant` by every styled part, so each part is styled
+   * from its own attributes and nested Tabs keep their own variant.
+   */
+  variant: TabsVariant;
 }
 
 export const TabsContext = createContext<TabsContextValue | null>(null);
