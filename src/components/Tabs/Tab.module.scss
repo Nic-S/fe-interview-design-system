@@ -1,5 +1,79 @@
 @use "../../styles/mixins";
 
+.tab {
+  // Component tokens: only the values that change with the breakpoint or the
+  // variant. Declared here, on the element that uses them.
+  --tab-min-height: 50px;
+  --tab-padding-inline: 0px;
+
+  @include mixins.text-body-m;
+  // Contains the visually hidden separator (absolutely positioned).
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--ds-space-2xs);
+  box-sizing: border-box;
+  // min-height, not height: the tab grows with the user's text size (WCAG 1.4.4).
+  min-height: var(--tab-min-height);
+  margin: 0;
+  padding: 0 var(--tab-padding-inline);
+  border: 0;
+  background: transparent;
+  color: var(--ds-color-on-neutral);
+  font-weight: var(--ds-font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+
+  @include mixins.mobile {
+    --tab-min-height: 42px;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+
+  // Figma: Variant=Pill. The variant is in :where() so it adds no specificity
+  // (see the specificity contract in Tabs.mdx).
+  &:where([data-variant="pill"]) {
+    // Figma draws the 1px border inside the pill (inner stroke), so the label
+    // stays 16px (S) from the outer edge: the padding leaves room for it.
+    --tab-padding-inline: calc(var(--ds-space-s) - 1px);
+    padding-block: var(--ds-space-4xs);
+    border: 1px solid var(--ds-color-outline);
+    border-radius: 100px;
+
+    @include mixins.mobile {
+      --tab-padding-inline: calc(var(--ds-space-xs) - 1px);
+    }
+
+    @include mixins.hover {
+      border-color: var(--ds-color-outline-hover);
+      background: var(--ds-color-surface-hover);
+    }
+
+    &:active {
+      border-color: var(--ds-color-outline);
+      background: var(--ds-color-surface-active);
+    }
+
+    &[data-selected] {
+      // Transparent, not removed: the size stays the same in every state.
+      border-color: transparent;
+      background: var(--ds-color-inverse);
+      color: var(--ds-color-on-inverse);
+
+      @include mixins.hover {
+        background: var(--ds-color-inverse-hover);
+      }
+
+      &:active {
+        background: var(--ds-color-inverse-active);
+      }
+    }
+  }
+}
+
 .visuallyHidden {
   @include mixins.visually-hidden;
 }

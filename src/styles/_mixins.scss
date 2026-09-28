@@ -13,6 +13,19 @@ $breakpoint-mobile: 768px;
   }
 }
 
+// Hover styles, only on devices whose primary pointer can hover (mouse,
+// trackpad). On touch screens :hover sticks after a tap, so a tab just
+// selected would keep its hover color. Use it inside the element's rule:
+//   @include mixins.hover { background: var(--ds-color-surface-hover); }
+// Same as Tailwind v4's `hover:` variant.
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
 // Keyboard focus indicator. Use it inside `:focus-visible` so it shows for
 // keyboard users only:
 //   &:focus-visible { @include mixins.focus-ring; }

@@ -33,20 +33,28 @@ export function Tab({ value, badgeProps, className, children, onClick, ref, ...r
       aria-controls={panelId}
       aria-selected={isSelected}
       tabIndex={isSelected ? 0 : -1}
-      className={cx("ds-Tab", className)}
+      className={cx(styles.tab, "ds-Tab", className)}
       data-variant={variant}
       data-selected={isSelected ? "" : undefined}
       data-value={value}
       data-tabs-id={baseId}
       onClick={composeEventHandlers(onClick, () => setValue(value))}
     >
-      {children}
-      {badgeProps && (
+      {badgeProps ? (
         <>
           {/* Accessible name "Files, Warning": the comma is read aloud only (a pause
-              for screen readers), the space keeps label and badge as two words. */}
-          <span className={styles.visuallyHidden}>,</span> <Badge {...badgeProps} />
+              for screen readers), the space keeps label and badge as two words.
+              The comma stays inside the label's span: next to the space, directly
+              in the flex tab, it would become an extra (empty) item and double
+              the gap between label and badge. */}
+          <span>
+            {children}
+            <span className={styles.visuallyHidden}>,</span>
+          </span>{" "}
+          <Badge {...badgeProps} />
         </>
+      ) : (
+        children
       )}
     </button>
   );

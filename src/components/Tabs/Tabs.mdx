@@ -76,6 +76,32 @@ const [tab, setTab] = useState("emails");
 - A hidden panel also gets `display: none` inline, so you can lay out a panel freely (e.g. `display: flex` through `className`): hidden panels stay hidden.
 - Panels are focusable (`tabIndex={0}`), so keyboard users reach content without focusable elements. If a panel **starts with a focusable element** (a field, a button), pass `tabIndex={-1}` to avoid an extra Tab stop.
 
+### Customization
+
+From the cleanest to the most specific:
+
+1. **Theme:** redefine the semantic tokens (`--ds-*`) on any wrapper, e.g. `.checkout { --ds-color-inverse: #0b5; }`.
+2. **Layout:** pass `className` to any part (margins, flex placement).
+3. **Targeted overrides:** the stable class of each part (`ds-Tabs`, `ds-TabList`, `ds-Tab`, `ds-TabPanel`) plus its state attributes:
+
+| Attribute | On | Values |
+|---|---|---|
+| `data-variant` | `Tabs`, `TabList`, `Tab` | `pill`, `underline` |
+| `data-selected` | `Tab`, `TabPanel` | present when selected |
+
+**Specificity contract.** The internal styles use one class per part plus at most two states; the variant is wrapped in `:where()` and adds no specificity, so the maximum is (0,3,0), a selected tab in hover. No ids, no selectors across parts, no `!important`. To override a state, use your class, the `ds-*` class and the same states:
+
+```css
+.checkout .ds-Tab[data-selected],
+.checkout .ds-Tab[data-selected]:hover {
+  background: #0b5;
+}
+```
+
+- Style a variant through the part itself (`.ds-Tab[data-variant="pill"]`), not with a descendant selector from `.ds-Tabs`: it would also reach the tabs of a nested Tabs.
+- The component tokens (`--tab-*`) are private: they may change in any release.
+- `--ds-focus-ring-color` is an alias of `--ds-color-inverse` resolved on `:root`: if you redefine `--ds-color-inverse` on a wrapper, redefine the focus ring color there too.
+
 ## Accessibility
 
 Implements the [WAI-ARIA Tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) with automatic activation.
