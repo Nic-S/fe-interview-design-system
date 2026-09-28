@@ -1,13 +1,14 @@
 @use "../../styles/mixins";
 
 .tab {
-  // Component tokens: only the values that change with the breakpoint or the
-  // variant. Declared here, on the element that uses them.
+  // Component tokens: only the values that change with the breakpoint, the
+  // variant or the state. Declared here, on the element that uses them.
   --tab-min-height: 50px;
   --tab-padding-inline: 0px;
 
   @include mixins.text-body-m;
-  // Contains the visually hidden separator (absolutely positioned).
+  // Contains the absolutely positioned children: the visually hidden
+  // separator and the underline's line.
   position: relative;
   display: inline-flex;
   flex-shrink: 0;
@@ -70,6 +71,43 @@
       &:active {
         background: var(--ds-color-inverse-active);
       }
+    }
+  }
+
+  // Figma: Variant=Underline
+  &:where([data-variant="underline"]) {
+    --tab-indicator-color: transparent;
+    // Ties the line to the space reserved for it below the label.
+    --tab-indicator-height: 3px;
+
+    // Figma: the label is centered above the line (3px bottom padding).
+    padding-bottom: var(--tab-indicator-height);
+    // Only shapes the focus ring: the outline follows border-radius expanded
+    // by outline-offset, so 6px + 2px gives the 8px (2XS) corners of Figma.
+    border-radius: 6px;
+
+    // The line has rounded ends (radius 100px): a pseudo-element, not a border.
+    &::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: var(--tab-indicator-height);
+      border-radius: 100px;
+      background: var(--tab-indicator-color);
+    }
+
+    @include mixins.hover {
+      --tab-indicator-color: var(--ds-color-outline-hover);
+    }
+
+    &:active,
+    &:focus-visible {
+      --tab-indicator-color: var(--ds-color-outline-hover);
+    }
+
+    &[data-selected] {
+      --tab-indicator-color: var(--ds-color-inverse);
     }
   }
 }
