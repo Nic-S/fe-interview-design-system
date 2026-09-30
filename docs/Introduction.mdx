@@ -1,51 +1,60 @@
-# Front End Interview — Design System
+import { Meta } from "@storybook/addon-docs/blocks";
 
-## Hi and welcome to the home test. 👋
+<Meta title="Introduction" />
 
-Make sure to carefully read the following brief, containing all the details you need.
+# Design System — Tabs
 
-## The Goal
+An accessible, reusable **Tabs** component with **Badge**, built as part of a small design system: React 19, SCSS Modules written from scratch, design tokens as CSS custom properties. It answers the [home test brief](https://github.com/primait/fe-interview-design-system/blob/master/src/Introduction.mdx) and follows the [Figma file](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/?node-id=47-678).
 
-For this take-home test, the goal is to develop a Tabs component that will be part of our Design System project.
-The component should be accessible and reusable, following best practices in front-end development.
-At the end of the test share with us the 🔗 public link to your repository that contains everything you need to show us about
-the component and its features (don’t fork please).
+## What's inside
 
-Resources:
-- The [figma file](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/%F0%9F%92%BB-Design-System-Home-Test---Tabs-Component?node-id=0-1&t=4pG7NN6HKxgxroDz-1)
-- The base [GitHub repository](https://github.com/primait/fe-interview-design-system)
+- **Foundations:** [Colors](?path=/docs/foundations-colors--docs) (with contrast ratios), [Typography](?path=/docs/foundations-typography--docs) and [Spacing](?path=/docs/foundations-spacing--docs), generated from the design tokens.
+- **Components:** [Tabs](?path=/docs/components-tabs--docs) and [Badge](?path=/docs/components-badge--docs), each with design and tech guidelines, props, keyboard and screen reader notes.
 
-## Acceptance Criteria
+## Acceptance criteria
 
-You need to develop the tab component following the acceptance criteria which we write in the form of a user story:
+| As a developer, I want to… | Where |
+|---|---|
+| switch between the variants of the `Tabs`, according to the design | `variant="pill" \| "underline"` on `Tabs`: [Variants story](?path=/story/components-tabs--variants) |
+| add a `Badge` to a `Tab` using the Tab's API | `badgeProps` on `Tab`: [With badges story](?path=/story/components-tabs--with-badges) |
+| choose between different `Badge` variants | `badgeProps.variant`: `neutral`, `positive`, `negative` ([Badge](?path=/docs/components-badge--docs)) |
 
-- As a developer, I want to be able to switch between different variants of the `Tabs`, according to the design.
-- As a developer, I want to add a `Badge` to the `Tab` using the Tab's API, to display additional information.
-- As a developer, I want to choose between different `Badge` variants to add to the Tab using the Tab's API.
+## Quick start
 
-There isn’t a specific way you should present your project, so feel free to structure it however you prefer.
+```tsx
+// Optional: the Inter font, served by your app (needs @fontsource-variable/inter).
+import "<design-system>/fonts";
+import { Tab, TabList, TabPanel, Tabs } from "<design-system>";
 
-You have 📅 7 days to complete the challenge.
+<Tabs defaultValue="emails">
+  <TabList aria-label="Inbox">
+    <Tab value="emails">Emails</Tab>
+    <Tab value="files" badgeProps={{ label: "Warning", variant: "negative" }}>
+      Files
+    </Tab>
+  </TabList>
+  <TabPanel value="emails">…</TabPanel>
+  <TabPanel value="files">…</TabPanel>
+</Tabs>
+```
 
-## Instructions
+`<design-system>` stands for the package name: the design system is not published yet. In this repository the entries are `src/index.ts` (components and tokens) and `src/fonts.ts`.
 
-- Design System Context: Build your component with reusability in mind, as it will be part of a larger Design System.
-- Accessibility: Ensure your component is accessible and follows best practices.
-- Restrictions:
-  - Please don't use Tailwind or other CSS frameworks.
-  - Use the CSS preprocessor you prefer. Alternatively, you can use CSS-in-JS or plain CSS, the important thing is writing CSS from scratch.
-- React: The React part should be a raw implementation.
-- Storybook: If you're familiar with it, feel free to use Storybook to showcase your component.
+## Principles
 
-## Recap
+- **Accessible by default:** the WAI-ARIA Tabs pattern (roles, keyboard, focus management), with automated accessibility tests (axe).
+- **Composable:** compound components (`Tabs`, `TabList`, `Tab`, `TabPanel`), controlled or uncontrolled, with native props, `ref` and `className` passed through.
+- **Themeable with tokens:** redefine the `--ds-*` custom properties on any wrapper.
+- **A small, stable styling API:** one `ds-*` class per part and `data-*` state attributes, with a documented specificity contract. Internal classes are private.
+- **Zero runtime CSS:** SCSS Modules compiled to static CSS.
 
-- ⭐️ Goal: Create a Tabs component, with a fully implementation of HTML and CSS and a raw implementation of the React component for the Tab functionality.
-- 📅 Time: 7 days
-- 🎁 Delivery: GitHub repository link
+## Run it locally
 
-We're looking forward to seeing your solution! This will give us a great starting point for our pair programming session, where we can dive deeper into your approach and coding style.
-If you have any questions, feel free to reach out
+| Command | What it does |
+|---|---|
+| `pnpm install` | Installs the dependencies (Node 24, pnpm via Corepack) |
+| `pnpm storybook` | This documentation, on port 6006 |
+| `pnpm dev` | A demo page with the example of the Figma file |
+| `pnpm test` | Unit and accessibility tests (Vitest) |
 
-## Now you have all the details you need.
-
-Good luck with work! 🚀
+The decisions behind the implementation and the testing strategy are in the repository's README.
