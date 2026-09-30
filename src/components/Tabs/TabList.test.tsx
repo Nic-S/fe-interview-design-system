@@ -146,6 +146,20 @@ describe("TabList", () => {
       expect(tab("Emails")).toHaveFocus();
     });
 
+    it("ignores the arrow keys with a modifier, which belong to the browser", async () => {
+      const user = userEvent.setup();
+      const onValueChange = vi.fn();
+      renderInbox({ onValueChange });
+      tab("Emails").focus();
+
+      await user.keyboard(
+        "{Alt>}{ArrowRight}{/Alt}{Control>}{End}{/Control}{Shift>}{ArrowLeft}{/Shift}",
+      );
+
+      expect(tab("Emails")).toHaveFocus();
+      expect(onValueChange).not.toHaveBeenCalled();
+    });
+
     it("moves only between its own tabs when another Tabs is nested", async () => {
       const user = userEvent.setup();
       renderInbox({

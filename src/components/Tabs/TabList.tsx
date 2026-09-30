@@ -28,6 +28,11 @@ export function TabList({ className, onKeyDown, ref, children, ...rest }: TabLis
   useSelectedTabInView(listRef, value);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    // With a modifier the keys belong to the browser or the OS (e.g. Alt+← is
+    // "back"): leave them alone, as Radix does.
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+      return;
+    }
     const tabs = getOwnTabs(listRef.current);
     const current = tabs.indexOf(event.target as HTMLElement);
     const count = tabs.length;
