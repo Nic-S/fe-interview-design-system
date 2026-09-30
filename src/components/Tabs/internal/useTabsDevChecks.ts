@@ -12,7 +12,6 @@ import { getOwnTabs } from "./getOwnTabs";
  */
 export function useTabsDevChecks(
   listRef: RefObject<HTMLElement | null>,
-  baseId: string,
   value: string | undefined,
 ) {
   const reported = useRef(new Set<string>());
@@ -26,7 +25,7 @@ export function useTabsDevChecks(
     if (!list.hasAttribute("aria-label") && !list.hasAttribute("aria-labelledby")) {
       problems.push("TabList needs an accessible name: pass aria-label or aria-labelledby.");
     }
-    const values = getOwnTabs(list, baseId).map((tab) => tab.dataset.value);
+    const values = getOwnTabs(list).map((tab) => tab.dataset.value);
     const duplicates = new Set(
       values.filter((tabValue, index) => values.indexOf(tabValue) !== index),
     );

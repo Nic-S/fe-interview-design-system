@@ -11,17 +11,16 @@ import { getOwnTabs } from "./getOwnTabs";
  */
 export function useSelectedTabInView(
   listRef: RefObject<HTMLElement | null>,
-  baseId: string,
   value: string | undefined,
 ) {
   // Layout effect: at mount the list is scrolled before the first paint.
   useLayoutEffect(() => {
     const list = listRef.current;
-    const selectedTab = getOwnTabs(list, baseId).find((tab) => tab.dataset.value === value);
+    const selectedTab = getOwnTabs(list).find((tab) => tab.dataset.value === value);
     if (list && selectedTab) {
       list.scrollLeft += distanceOutOfView(list, selectedTab);
     }
-  }, [listRef, baseId, value]);
+  }, [listRef, value]);
 }
 
 /**

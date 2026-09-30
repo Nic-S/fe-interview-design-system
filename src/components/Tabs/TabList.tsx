@@ -21,14 +21,14 @@ import type { TabListProps } from "./Tabs.types";
  * with `aria-label` or `aria-labelledby`.
  */
 export function TabList({ className, onKeyDown, ref, children, ...rest }: TabListProps) {
-  const { value, setValue, baseId, variant } = useTabsContext("TabList");
+  const { value, setValue, variant } = useTabsContext("TabList");
   const listRef = useRef<HTMLDivElement>(null);
   const mergedRef = useMergedRefs(listRef, ref);
-  useTabsDevChecks(listRef, baseId, value);
-  useSelectedTabInView(listRef, baseId, value);
+  useTabsDevChecks(listRef, value);
+  useSelectedTabInView(listRef, value);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    const tabs = getOwnTabs(listRef.current, baseId);
+    const tabs = getOwnTabs(listRef.current);
     const current = tabs.indexOf(event.target as HTMLElement);
     const count = tabs.length;
     const targets: Record<string, number> = {

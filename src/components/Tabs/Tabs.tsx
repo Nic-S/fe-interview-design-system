@@ -39,7 +39,6 @@ export function Tabs({
     () => ({
       value,
       setValue,
-      baseId,
       getIds: (tabValue: string) => {
         // Escapes spaces (and other unusual characters): ARIA id references are
         // space-separated lists, so "my files" would be read as two ids.

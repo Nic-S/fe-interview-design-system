@@ -14,7 +14,7 @@ import type { TabProps } from "./Tabs.types";
  * Place it inside `<TabList>`; the `<TabPanel>` with the same `value` shows its content.
  */
 export function Tab({ value, badgeProps, className, children, onClick, ref, ...rest }: TabProps) {
-  const { value: selectedValue, setValue, baseId, getIds, variant } = useTabsContext("Tab");
+  const { value: selectedValue, setValue, getIds, variant } = useTabsContext("Tab");
   // Structural, like using a Tab outside Tabs: without a tablist the tab is
   // not accessible (no parent role, no keyboard navigation, no list name).
   if (!use(TabListContext)) {
@@ -37,7 +37,6 @@ export function Tab({ value, badgeProps, className, children, onClick, ref, ...r
       data-variant={variant}
       data-selected={isSelected ? "" : undefined}
       data-value={value}
-      data-tabs-id={baseId}
       onClick={composeEventHandlers(onClick, () => setValue(value))}
     >
       {badgeProps ? (
