@@ -1,14 +1,46 @@
-:root {
-  --background: #eee;
-  --content: #222;
+/* Layout of the demo page only: the components style themselves. */
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ds-color-on-neutral);
+  font-family: var(--ds-font-family-base);
 }
 
-body {
-  background-color: var(--background);
-  color: var(--content);
+.page {
   display: grid;
-  font-size: 2rem;
+  gap: var(--ds-space-l);
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--ds-space-xl) var(--ds-space-s);
+}
+
+.page h1 {
+  margin: 0 0 var(--ds-space-2xs);
+}
+
+.page p {
   margin: 0;
-  min-height: 100vh;
-  place-content: center;
+}
+
+.variants {
+  display: flex;
+  gap: var(--ds-space-s);
+  margin: 0;
+  padding: var(--ds-space-xs) var(--ds-space-s);
+  border: 1px solid var(--ds-color-outline);
+  border-radius: 8px;
+}
+
+/* Layout of the panel content through className (customization level 2). */
+.panel {
+  padding-top: var(--ds-space-m);
+}
+
+.panel ul {
+  margin: var(--ds-space-xs) 0 0;
+  padding-left: var(--ds-space-m);
+}
+
+.panel > ul:first-child {
+  margin-top: 0;
 }
