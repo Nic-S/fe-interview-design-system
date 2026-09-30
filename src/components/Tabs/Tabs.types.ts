@@ -34,7 +34,11 @@ interface TabsUncontrolledProps {
  */
 export type TabsProps = TabsBaseProps & (TabsControlledProps | TabsUncontrolledProps);
 
-export interface TabProps extends Omit<ComponentProps<"button">, "value" | "type"> {
+/**
+ * Native button props, except `disabled`: the design has no disabled state and
+ * the keyboard navigation doesn't skip disabled tabs, so the type rejects it.
+ */
+export interface TabProps extends Omit<ComponentProps<"button">, "value" | "type" | "disabled"> {
   /**
    * Unique value of the tab. It selects the tab and links it to the TabPanel
    * with the same value.

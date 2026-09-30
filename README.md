@@ -83,7 +83,7 @@ Git hooks (husky): Biome on the staged files and the type-check before each comm
 - **Controlled or uncontrolled:** `value` + `onValueChange`, or `defaultValue`. A discriminated union makes TypeScript reject a mix of the two.
 - **`badgeProps`** is a typed object, not a React node: the Tab renders the Badge, so it always looks as designed.
 - **`variant`** is set once on `Tabs` and reaches every part through context, rendered as `data-variant`. With a descendant selector from the root, a Tabs nested in another's panel took the styles of the outer one (verified in the browser).
-- **Native props pass through** on every part, with `ref` (React 19: a regular prop) and `className` merged. Event handlers are composed with ours: `event.preventDefault()` in the consumer's handler skips the built-in behavior.
+- **Native props pass through** on every part, with `ref` (React 19: a regular prop) and `className` merged. The one exception is `disabled` on `Tab`: the design has no disabled state and the keyboard navigation doesn't skip disabled tabs, so the type rejects it. To hide a tab that is not available, don't render it. Event handlers are composed with ours: `event.preventDefault()` in the consumer's handler skips the built-in behavior.
 - **Errors:** a part used outside its parent throws (structural, always visible in development). Mistakes that can come from data (duplicate values, a value that matches no tab, a tablist without a name) are reported with `console.error` in development and don't break the page.
 
 ### Accessibility

@@ -109,6 +109,14 @@ describe("Tab", () => {
     expect(ref.current).toBe(tab("Emails"));
   });
 
+  it("doesn't accept disabled, which the design doesn't have (type-checked)", () => {
+    // Verified by tsc: the keyboard navigation would still select a disabled tab.
+    // @ts-expect-error disabled is not a Tab prop
+    <Tab value="emails" disabled>
+      Emails
+    </Tab>;
+  });
+
   describe("onClick", () => {
     it("calls the consumer's handler and still selects the tab", async () => {
       const user = userEvent.setup();
