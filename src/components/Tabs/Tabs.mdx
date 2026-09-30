@@ -20,7 +20,25 @@ Tabs organize related content at the same level and let users switch between vie
 
 - Selecting a tab shows its panel and hides the others.
 - Two variants, as in Figma: **pill** (default) and **underline**. All the tabs of a list share the variant.
+
+<Canvas of={TabsStories.Variants} />
+
 - A tab can show a [Badge](?path=/docs/components-badge--docs) after its label, e.g. a warning on "Files".
+
+<Canvas of={TabsStories.WithBadges} />
+
+- **Mobile** (viewport up to 768px): smaller tabs. When the tabs don't fit, the list scrolls horizontally (touch, trackpad, Shift + wheel, arrow keys) with a hidden scrollbar, and keeps the selected tab in view. It never wraps on more lines, which would confuse the reading order and the arrow keys. See the [Mobile story](?path=/story/components-tabs--mobile): this page shows the desktop sizes.
+
+| | Desktop | Mobile (≤ 768px) |
+|---|---|---|
+| Tab height | 50px | 42px |
+| Pill padding | 16px (S) | 12px (XS) |
+| Gap between pills | 12px (XS) | 8px (2XS) |
+| Gap between underline tabs | 32px (XL) | 24px (L) |
+
+- **Nested Tabs** (a Tabs inside a panel of another) keep their own variant and keyboard navigation.
+
+<Canvas of={TabsStories.Nested} />
 
 ### Best practices
 
@@ -73,6 +91,9 @@ const [tab, setTab] = useState("emails");
 ### Panels
 
 - The panel element is always rendered and hidden while its tab is not selected; its **content** is mounted only while selected. Use `keepMounted` to keep it (and its state, e.g. a half-filled form) mounted while hidden.
+
+<Canvas of={TabsStories.KeepMounted} />
+
 - A hidden panel also gets `display: none` inline, so you can lay out a panel freely (e.g. `display: flex` through `className`): hidden panels stay hidden.
 - Panels are focusable (`tabIndex={0}`), so keyboard users reach content without focusable elements. If a panel **starts with a focusable element** (a field, a button), pass `tabIndex={-1}` to avoid an extra Tab stop.
 

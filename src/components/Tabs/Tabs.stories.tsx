@@ -61,7 +61,10 @@ const inboxPanels = (
   </>
 );
 
-/** Uncontrolled: `defaultValue` sets the first selected tab, then Tabs owns the state. */
+/**
+ * The example of the Figma file. Uncontrolled: `defaultValue` sets the first
+ * selected tab, then Tabs owns the state.
+ */
 export const Default: Story = {
   render: (args) => (
     <Tabs {...args}>
@@ -96,4 +99,107 @@ function ControlledInbox({ variant }: { variant?: TabsVariant }) {
 export const Controlled: Story = {
   parameters: { controls: { include: ["variant"] } },
   render: ({ variant }) => <ControlledInbox variant={variant} />,
+};
+
+/** The two variants of the design. All the tabs of a Tabs share its variant. */
+export const Variants: Story = {
+  parameters: { controls: { exclude: ["variant"] } },
+  render: (args) => (
+    <div style={{ display: "grid", gap: "var(--ds-space-xl)" }}>
+      <Tabs {...args} variant="pill">
+        {inboxTabs}
+        {inboxPanels}
+      </Tabs>
+      <Tabs {...args} variant="underline">
+        {inboxTabs}
+        {inboxPanels}
+      </Tabs>
+    </div>
+  ),
+};
+
+/** A tab can show a Badge after its label, in any of its variants (`badgeProps`). */
+export const WithBadges: Story = {
+  render: (args) => (
+    <Tabs {...args}>
+      <TabList aria-label="Inbox">
+        <Tab value="emails" badgeProps={{ label: "12", variant: "neutral" }}>
+          Emails
+        </Tab>
+        <Tab value="files" badgeProps={{ label: "Warning", variant: "negative" }}>
+          Files
+        </Tab>
+        <Tab value="edits" badgeProps={{ label: "Saved", variant: "positive" }}>
+          Edits
+        </Tab>
+      </TabList>
+      <TabPanel value="emails">12 unread emails.</TabPanel>
+      <TabPanel value="files">Your files: 2 need attention.</TabPanel>
+      <TabPanel value="edits">All edits are saved.</TabPanel>
+    </Tabs>
+  ),
+};
+
+/**
+ * At viewport widths up to 768px the tabs are smaller. When they don't fit,
+ * the list scrolls horizontally (touch, trackpad, Shift + wheel, arrow keys)
+ * and keeps the selected tab in view.
+ */
+export const Mobile: Story = {
+  ...Default,
+  args: { defaultValue: "messages" },
+  globals: { viewport: { value: "mobile1", isRotated: false } },
+};
+
+/**
+ * `keepMounted` keeps the content of a hidden panel mounted, with its state:
+ * type in both fields, switch tab and come back.
+ */
+export const KeepMounted: Story = {
+  args: { defaultValue: "draft" },
+  render: (args) => (
+    <Tabs {...args}>
+      <TabList aria-label="Message">
+        <Tab value="draft">Draft</Tab>
+        <Tab value="notes">Notes</Tab>
+        <Tab value="preview">Preview</Tab>
+      </TabList>
+      <TabPanel value="draft" keepMounted>
+        <label>
+          Draft (kept while hidden) <input />
+        </label>
+      </TabPanel>
+      <TabPanel value="notes">
+        <label>
+          Notes (reset when hidden) <input />
+        </label>
+      </TabPanel>
+      <TabPanel value="preview">Nothing to preview.</TabPanel>
+    </Tabs>
+  ),
+};
+
+/** A Tabs inside a panel of another: each keeps its own variant and keyboard navigation. */
+export const Nested: Story = {
+  args: { defaultValue: "files" },
+  parameters: { controls: { exclude: ["variant"] } },
+  render: (args) => (
+    <Tabs {...args} variant="pill">
+      <TabList aria-label="Inbox">
+        <Tab value="emails">Emails</Tab>
+        <Tab value="files">Files</Tab>
+      </TabList>
+      <TabPanel value="emails">Your emails.</TabPanel>
+      <TabPanel value="files">
+        <Tabs defaultValue="images" variant="underline">
+          <TabList aria-label="File types">
+            <Tab value="images">Images</Tab>
+            <Tab value="documents">Documents</Tab>
+          </TabList>
+          <TabPanel value="images">Your images.</TabPanel>
+          <TabPanel value="documents">Your documents.</TabPanel>
+        </Tabs>
+      </TabPanel>
+    </Tabs>
+  ),
 };
