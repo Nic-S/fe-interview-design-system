@@ -1,0 +1,6 @@
+.root {
+  // As a grid or flex item, the root would not shrink below its content: the
+  // whole row of tabs. It would widen the layout instead of letting the tab
+  // list scroll (grid "1fr blowout").
+  min-width: 0;
+}

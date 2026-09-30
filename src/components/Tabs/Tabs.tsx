@@ -2,6 +2,7 @@ import { useId, useMemo } from "react";
 import { useControllableState } from "../../hooks/useControllableState";
 import { cx } from "../../utils/cx";
 import { TabsContext } from "./internal/TabsContext";
+import styles from "./Tabs.module.scss";
 import type { TabsProps } from "./Tabs.types";
 
 /**
@@ -52,7 +53,12 @@ export function Tabs({
 
   return (
     <TabsContext value={contextValue}>
-      <div ref={ref} {...rest} className={cx("ds-Tabs", className)} data-variant={variant}>
+      <div
+        ref={ref}
+        {...rest}
+        className={cx(styles.root, "ds-Tabs", className)}
+        data-variant={variant}
+      >
         {children}
       </div>
     </TabsContext>

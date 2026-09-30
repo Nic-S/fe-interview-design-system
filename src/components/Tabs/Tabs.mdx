@@ -102,7 +102,7 @@ const [tab, setTab] = useState("emails");
 From the cleanest to the most specific:
 
 1. **Theme:** redefine the semantic tokens (`--ds-*`) on any wrapper, e.g. `.checkout { --ds-color-inverse: #0b5; }`.
-2. **Layout:** pass `className` to any part (margins, flex placement).
+2. **Layout:** pass `className` to any part (margins, flex placement). Tabs can shrink inside grid and flex layouts, so the tab list scrolls instead of widening the page. If you wrap them in an element that is itself a grid or flex item, give that element `min-width: 0` too: otherwise it can't be narrower than the whole row of tabs.
 3. **Targeted overrides:** the stable class of each part (`ds-Tabs`, `ds-TabList`, `ds-Tab`, `ds-TabPanel`) plus its state attributes:
 
 | Attribute | On | Values |
