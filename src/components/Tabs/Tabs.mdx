@@ -9,25 +9,34 @@ Tabs organize related content at the same level and let users switch between vie
 
 <Primary />
 
+## Examples
+
+**Variants:** pill (default) and underline. All the tabs of a list share the variant.
+
+<Canvas of={TabsStories.Variants} />
+
+**With badges:** a tab can show a [Badge](?path=/docs/components-badge--docs) after its label, in any of its variants.
+
+<Canvas of={TabsStories.WithBadges} />
+
+**Nested:** a Tabs inside a panel of another keeps its own variant and keyboard navigation.
+
+<Canvas of={TabsStories.Nested} />
+
+**Mobile:** smaller tabs and a list that scrolls, in the [Mobile story](?path=/story/components-tabs--mobile) (this page shows the desktop sizes).
+
 ## Design guideline
 
 ### Usage
 
 - Divide content that is **at the same level of importance** into views the user can switch between.
-- Every tab needs a short label that sums up its content.
 
 ### Behavior
 
 - Selecting a tab shows its panel and hides the others.
 - Two variants, as in Figma: **pill** (default) and **underline**. All the tabs of a list share the variant.
-
-<Canvas of={TabsStories.Variants} />
-
 - A tab can show a [Badge](?path=/docs/components-badge--docs) after its label, e.g. a warning on "Files".
-
-<Canvas of={TabsStories.WithBadges} />
-
-- **Mobile** (viewport up to 768px): smaller tabs. When the tabs don't fit, the list scrolls horizontally (touch, trackpad, Shift + wheel, arrow keys) with a hidden scrollbar, and keeps the selected tab in view. It never wraps on more lines, which would confuse the reading order and the arrow keys. See the [Mobile story](?path=/story/components-tabs--mobile): this page shows the desktop sizes.
+- **Mobile** (viewport up to 768px): smaller tabs. When the tabs don't fit, the list scrolls horizontally (touch, trackpad, Shift + wheel, arrow keys) with a hidden scrollbar, and keeps the selected tab in view. It never wraps on more lines, which would confuse the reading order and the arrow keys.
 
 | | Desktop | Mobile (≤ 768px) |
 |---|---|---|
@@ -38,13 +47,25 @@ Tabs organize related content at the same level and let users switch between vie
 
 - **Nested Tabs** (a Tabs inside a panel of another) keep their own variant and keyboard navigation.
 
-<Canvas of={TabsStories.Nested} />
+### Placement
+
+- Directly above the content they switch, aligned with it: the panels follow the tab list.
+- At the top of a page or of a section. For a second level, nest Tabs inside a panel, preferably with the other variant; avoid a third level.
+- On mobile the list scrolls horizontally: don't put it inside another horizontally scrolling area, such as a carousel.
 
 ### Best practices
 
 - Use tabs with **at least two** items. With a single one, prefer a heading.
-- Keep labels short (one or two words).
+- Don't use tabs when the number of views is dynamic or unknown.
 - Don't use tabs for sequential steps (use a stepper) or to navigate between pages (use links in a `<nav>`, with `aria-current="page"`).
+- To make a view unavailable, don't render its tab: tabs have no disabled state.
+
+### Content guideline
+
+- Every tab needs a label that sums up its content: one or two words, in sentence case ("Emails", not "EMAILS"), without final punctuation.
+- Keep the labels parallel (all nouns, for example) and don't repeat the context ("Emails", not "Inbox emails").
+- Keep the order stable: don't reorder tabs based on data.
+- Add a badge only where it adds information (a status or a count), not on every tab.
 
 ## Tech guideline
 
@@ -52,6 +73,21 @@ Tabs organize related content at the same level and let users switch between vie
 
 ```tsx
 import { Tab, TabList, TabPanel, Tabs } from "<design-system>";
+```
+
+### Usage example
+
+```tsx
+<Tabs defaultValue="emails" variant="underline">
+  <TabList aria-label="Inbox">
+    <Tab value="emails">Emails</Tab>
+    <Tab value="files" badgeProps={{ label: "Warning", variant: "negative" }}>
+      Files
+    </Tab>
+  </TabList>
+  <TabPanel value="emails">…</TabPanel>
+  <TabPanel value="files">…</TabPanel>
+</Tabs>
 ```
 
 ### Anatomy
@@ -82,22 +118,40 @@ const [tab, setTab] = useState("emails");
 
 `value` and `defaultValue` are mutually exclusive (checked by TypeScript). A component should not switch between the two modes during its lifetime.
 
+**Controlled:** the "Show files" button changes the selected tab from outside.
+
 <Canvas of={TabsStories.Controlled} />
-
-### Props
-
-<ArgTypes of={TabsStories} />
 
 ### Panels
 
 - The panel element is always rendered and hidden while its tab is not selected; its **content** is mounted only while selected. Use `keepMounted` to keep it (and its state, e.g. a half-filled form) mounted while hidden.
-
-<Canvas of={TabsStories.KeepMounted} />
-
 - A hidden panel also gets `display: none` inline, so you can lay out a panel freely (e.g. `display: flex` through `className`): hidden panels stay hidden.
 - Panels are focusable (`tabIndex={0}`), so keyboard users reach content without focusable elements. If a panel **starts with a focusable element** (a field, a button), pass `tabIndex={-1}` to avoid an extra Tab stop.
 
-### Customization
+**Keep mounted:** type in both fields, switch tab and come back.
+
+<Canvas of={TabsStories.KeepMounted} />
+
+### Styling
+
+#### Tokens
+
+| Property | Desktop | Mobile (≤ 768px) |
+|---|---|---|
+| Text | `--ds-color-on-neutral` (selected pill: `--ds-color-on-inverse`), Body M (`--ds-font-size-body-m`), Bold | same |
+| Tab height | 50px | 42px |
+| Pill padding (inline) | `--ds-space-s`, 1px border included (label 16px from the edge) | `--ds-space-xs`, same (12px) |
+| Pill border | `--ds-color-outline`; hover `--ds-color-outline-hover` | same |
+| Pill background: hover / active | `--ds-color-surface-hover` / `--ds-color-surface-active` | same |
+| Selected pill background: default / hover / active | `--ds-color-inverse` / `--ds-color-inverse-hover` / `--ds-color-inverse-active` | same |
+| Underline line (3px) | selected `--ds-color-inverse`; hover, active and focus `--ds-color-outline-hover` | same |
+| Gap between label and badge | `--ds-space-2xs` | same |
+| Gap between tabs: pill / underline | `--ds-space-xs` / `--ds-space-xl` | `--ds-space-2xs` / `--ds-space-l` |
+| Focus ring | `--ds-focus-ring-color`, `--ds-focus-ring-width` (2px), `--ds-focus-ring-offset` (2px) | same |
+
+Height, pill padding, gaps and the line color are component tokens (`--tab-*`, `--tab-list-*`), so the mobile rules and the states only change values.
+
+#### Customization
 
 From the cleanest to the most specific:
 
@@ -120,8 +174,14 @@ From the cleanest to the most specific:
 ```
 
 - Style a variant through the part itself (`.ds-Tab[data-variant="pill"]`), not with a descendant selector from `.ds-Tabs`: it would also reach the tabs of a nested Tabs.
-- The component tokens (`--tab-*`) are private: they may change in any release.
+- The component tokens (`--tab-*`, `--tab-list-*`) are private: they may change in any release.
 - `--ds-focus-ring-color` is an alias of `--ds-color-inverse` resolved on `:root`: if you redefine `--ds-color-inverse` on a wrapper, redefine the focus ring color there too.
+
+### Props
+
+Native props, `ref` and `className` are passed through on every part (except `disabled` on `Tab`); `className` is merged with the part's own classes.
+
+<ArgTypes of={TabsStories} />
 
 ## Accessibility
 
@@ -134,6 +194,8 @@ Implements the [WAI-ARIA Tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/
 | <kbd>Tab</kbd> | Enters the tablist on the selected tab; from a tab, moves to the panel |
 | <kbd>→</kbd> / <kbd>←</kbd> | Selects the next / previous tab, wrapping around |
 | <kbd>Home</kbd> / <kbd>End</kbd> | Selects the first / last tab |
+
+With a modifier key (Alt, Ctrl, Meta, Shift) the keys are left to the browser.
 
 ### Screen readers
 

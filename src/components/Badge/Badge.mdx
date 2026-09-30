@@ -9,12 +9,19 @@ A short label that adds context to another element: in this design system, mainl
 
 <Primary />
 
+## Examples
+
+**Variants:** neutral (default), positive and negative.
+
+<Canvas of={BadgeStories.Variants} />
+
+**Mobile:** smaller padding and radius, in the [Mobile story](?path=/story/components-badge--mobile) (this page shows the desktop sizes).
+
 ## Design guideline
 
 ### Usage
 
 - Add short, contextual information to another element, e.g. a warning on the "Files" tab.
-- Keep the label to one or two words.
 
 ### Behavior
 
@@ -22,12 +29,20 @@ A short label that adds context to another element: in this design system, mainl
 - At viewport widths up to **768px** it uses smaller padding and radius.
 - It is not interactive: not focusable, no role. Screen readers read its text as part of the surrounding content.
 
-<Canvas of={BadgeStories.Variants} />
+### Placement
+
+- After the label it refers to, on the same line: in a tab, through the Tab's `badgeProps`.
+- One badge per element.
 
 ### Best practices
 
 - The label must carry the meaning on its own: color alone is not enough ([WCAG 1.4.1](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color)). Write "Warning", don't rely on a red badge.
 - Don't use a badge as a button or a link.
+
+### Content guideline
+
+- One or two words, or a number, in sentence case: "Warning", "Saved", "12".
+- Name the state, not the color, and pick the variant that matches it: **negative** for problems, **positive** for success, **neutral** for information and counts.
 
 ## Tech guideline
 
@@ -37,12 +52,6 @@ A short label that adds context to another element: in this design system, mainl
 import { Badge } from "<design-system>";
 ```
 
-### Props
-
-Native `<span>` props, `ref` and `className` are passed through; `className` is merged with the badge's own classes.
-
-<ArgTypes of={BadgeStories} />
-
 ### Usage example
 
 ```tsx
@@ -51,7 +60,7 @@ Native `<span>` props, `ref` and `className` are passed through; `className` is 
 
 In a tab, use the Tab's `badgeProps` instead: it takes the same props.
 
-### Anatomy and customization
+### Anatomy
 
 The badge renders a `<span>` with:
 
@@ -60,9 +69,9 @@ The badge renders a `<span>` with:
 | `.ds-Badge` | — | Stable class to target the badge from app styles |
 | `data-variant` | `neutral`, `positive`, `negative` | Variant, e.g. `.checkout .ds-Badge[data-variant="negative"]` |
 
-Internal CSS Module classes are hashed and not part of the API.
+### Styling
 
-### Tokens
+#### Tokens
 
 | Property | Desktop | Mobile (≤ 768px) |
 |---|---|---|
@@ -72,6 +81,16 @@ Internal CSS Module classes are hashed and not part of the API.
 | Radius | 12px | 8px |
 
 Padding and radius are component tokens (`--badge-padding-block`, `--badge-padding-inline`, `--badge-radius`), so the mobile rule only changes values.
+
+#### Customization
+
+The same levels as the [Tabs](?path=/docs/components-tabs--docs): theme tokens (`--ds-*`) on any wrapper, `className` for layout, and `.ds-Badge` with `data-variant` for targeted overrides. The hashed CSS Module classes and the component tokens (`--badge-*`) are private: not part of the API.
+
+### Props
+
+Native `<span>` props, `ref` and `className` are passed through; `className` is merged with the badge's own classes.
+
+<ArgTypes of={BadgeStories} />
 
 ## Accessibility
 
