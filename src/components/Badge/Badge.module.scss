@@ -34,4 +34,12 @@
   &[data-variant="negative"] {
     --badge-background: var(--ds-color-surface-negative);
   }
+
+  // High contrast (forced colors): the background is replaced by the system
+  // one, so an outline keeps the badge's shape. Inside a selected pill (which
+  // opts out of forced colors) the badge goes back to the system colors.
+  @media (forced-colors: active) {
+    forced-color-adjust: auto;
+    outline: 1px solid CanvasText;
+  }
 }

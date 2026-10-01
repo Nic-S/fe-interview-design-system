@@ -110,6 +110,31 @@
       --tab-indicator-color: var(--ds-color-inverse);
     }
   }
+
+  // High contrast (forced colors): the browser replaces backgrounds with the
+  // user's system colors, so the selected pill looks like the others and the
+  // underline's line disappears. The selected state gets system colors of its
+  // own, which follow the user's theme (light or dark).
+  @media (forced-colors: active) {
+    &:where([data-variant="pill"])[data-selected],
+    &:where([data-variant="pill"])[data-selected]:is(:hover, :active) {
+      forced-color-adjust: none;
+      border-color: Highlight;
+      background: Highlight;
+      color: HighlightText;
+    }
+
+    &:where([data-variant="underline"])[data-selected]::after {
+      forced-color-adjust: none;
+      background: Highlight;
+    }
+
+    // With forced-color-adjust: none the ring would keep the design's color,
+    // which can vanish on a dark theme.
+    &:focus-visible {
+      outline-color: CanvasText;
+    }
+  }
 }
 
 .visuallyHidden {

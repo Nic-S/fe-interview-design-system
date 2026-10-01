@@ -95,6 +95,7 @@ Native `<span>` props, `ref` and `className` are passed through; `className` is 
 ## Accessibility
 
 - **No live region:** the badge has no `role="status"`, so changes are not announced. If an app needs an announcement (e.g. a counter that updates), it should add it where the change happens.
+- **High contrast:** in forced colors modes (e.g. Windows High Contrast) the background is replaced, so the badge keeps an outline.
 - **Contrast:** 14.21:1 (neutral), 13.70:1 (positive), 10.15:1 (negative), see [Foundations / Colors](?path=/docs/foundations-colors--docs).
 
 [Figma: Badge](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/?node-id=47-677)
