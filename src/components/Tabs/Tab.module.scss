@@ -39,7 +39,6 @@
     // Figma draws the 1px border inside the pill (inner stroke), so the label
     // stays 16px (S) from the outer edge: the padding leaves room for it.
     --tab-padding-inline: calc(var(--ds-space-s) - 1px);
-    padding-block: var(--ds-space-4xs);
     border: 1px solid var(--ds-color-outline);
     border-radius: 100px;
 
