@@ -151,6 +151,45 @@ export const Mobile: Story = {
   globals: { viewport: { value: "mobile1", isRotated: false } },
 };
 
+const workspaceSections = [
+  "Overview",
+  "Emails",
+  "Files",
+  "Edits",
+  "Dashboard",
+  "Messages",
+  "Calendar",
+  "Contacts",
+  "Tasks",
+  "Reports",
+  "Settings",
+  "Billing",
+];
+
+/**
+ * More tabs than fit: the list scrolls horizontally at any width and keeps the
+ * selected tab in view, here "Billing", the last one, selected at mount.
+ */
+export const Overflow: Story = {
+  args: { defaultValue: "billing" },
+  render: (args) => (
+    <Tabs {...args}>
+      <TabList aria-label="Workspace">
+        {workspaceSections.map((section) => (
+          <Tab key={section} value={section.toLowerCase()}>
+            {section}
+          </Tab>
+        ))}
+      </TabList>
+      {workspaceSections.map((section) => (
+        <TabPanel key={section} value={section.toLowerCase()}>
+          {section}.
+        </TabPanel>
+      ))}
+    </Tabs>
+  ),
+};
+
 /**
  * `keepMounted` keeps the content of a hidden panel mounted, with its state:
  * type in both fields, switch tab and come back.
