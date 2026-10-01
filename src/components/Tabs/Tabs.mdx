@@ -120,7 +120,7 @@ const [tab, setTab] = useState("emails");
 <Tabs value={tab} onValueChange={setTab}>…</Tabs>
 ```
 
-`value` and `defaultValue` are mutually exclusive (checked by TypeScript). A component should not switch between the two modes during its lifetime.
+`value` and `defaultValue` are mutually exclusive (checked by TypeScript). A component should not switch between the two modes during its lifetime: a development check reports it.
 
 **Controlled:** the "Show files" button changes the selected tab from outside.
 
@@ -213,6 +213,6 @@ In forced colors modes (e.g. Windows High Contrast) the browser replaces the des
 
 ### Development checks
 
-In development, these mistakes are reported with `console.error`: a tablist without a name, duplicate tab values, a selected value that matches no tab.
+In development, these mistakes are reported with `console.error`: a tablist without a name, duplicate tab values, a selected value that matches no tab, a switch between controlled and uncontrolled.
 
 [Figma: Tab and Tabs](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/?node-id=47-678)

@@ -66,4 +66,16 @@ describe("useControllableState", () => {
 
     expect(onChange).not.toHaveBeenCalled();
   });
+
+  it("reports a switch between controlled and uncontrolled in development", () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { rerender } = renderControllable({ value: "emails", onChange: vi.fn() });
+
+    rerender({ defaultValue: "emails" });
+
+    expect(consoleError).toHaveBeenCalledExactlyOnceWith(
+      "A component changed from controlled to uncontrolled. Decide between controlled (value) and uncontrolled (defaultValue) for its whole lifetime.",
+    );
+    consoleError.mockRestore();
+  });
 });
