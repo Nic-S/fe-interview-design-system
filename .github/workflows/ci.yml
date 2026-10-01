@@ -36,8 +36,11 @@ jobs:
       - name: Type-check
         run: pnpm tsc
 
-      - name: Test
-        run: pnpm test
+      - name: Unit tests (jsdom)
+        run: pnpm test:unit
+
+      - name: Browser tests (Chrome)
+        run: pnpm test:browser
 
       - name: Build Storybook
         run: pnpm build-storybook
