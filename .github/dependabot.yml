@@ -16,6 +16,11 @@ updates:
       - react-dom
       - '@types/react'
       - '@types/react-dom'
+    # @vitest/browser-playwright requires the exact version of vitest.
+    vitest:
+      patterns:
+      - vitest
+      - '@vitest/*'
 - package-ecosystem: github-actions
   directory: /
   schedule:

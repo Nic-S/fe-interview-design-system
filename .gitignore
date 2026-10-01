@@ -24,3 +24,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Vitest browser mode: screenshots of failed tests
+.vitest/
