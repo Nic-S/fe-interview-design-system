@@ -48,6 +48,7 @@ Tabs organize related content at the same level and let users switch between vie
 | Pill padding | 16px (S) | 12px (XS) |
 | Gap between pills | 12px (XS) | 8px (2XS) |
 | Gap between underline tabs | 32px (XL) | 24px (L) |
+| Space between the tabs and the panel | 32px (XL) | 32px (XL) |
 
 - **Nested Tabs** (a Tabs inside a panel of another) keep their own variant and keyboard navigation.
 
@@ -151,6 +152,7 @@ const [tab, setTab] = useState("emails");
 | Underline line (3px) | selected `--ds-color-inverse`; hover, active and focus `--ds-color-outline-hover` | same |
 | Gap between label and badge | `--ds-space-2xs` | same |
 | Gap between tabs: pill / underline | `--ds-space-xs` / `--ds-space-xl` | `--ds-space-2xs` / `--ds-space-l` |
+| Space between the tabs and the panel | `--ds-space-xl`, a top margin on the panel (change it through `className`) | same |
 | Focus ring | `--ds-focus-ring-color`, `--ds-focus-ring-width` (2px), `--ds-focus-ring-offset` (2px) | same |
 
 Height, pill padding, gaps and the line color are component tokens (`--tab-*`, `--tab-list-*`), so the mobile rules and the states only change values.

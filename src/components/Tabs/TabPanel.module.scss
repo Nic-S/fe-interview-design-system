@@ -1,6 +1,10 @@
 @use "../../styles/mixins";
 
 .panel {
+  // Figma (Handoff specs, examples): the content starts 32px (XL) below the
+  // tabs. A margin and not a padding, so the focus ring wraps the content only.
+  margin-top: var(--ds-space-xl);
+
   // Focusable by default (tabIndex={0}): the ring of the design system
   // instead of the browser's default one.
   &:focus-visible {

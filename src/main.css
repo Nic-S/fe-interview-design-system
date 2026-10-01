@@ -32,10 +32,6 @@ body {
 }
 
 /* Layout of the panel content through className (customization level 2). */
-.panel {
-  padding-top: var(--ds-space-m);
-}
-
 .panel ul {
   margin: var(--ds-space-xs) 0 0;
   padding-left: var(--ds-space-m);

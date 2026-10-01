@@ -144,6 +144,16 @@ describe("Tabs in a real browser", () => {
     );
   });
 
+  it.each<TabsVariant>(["pill", "underline"])(
+    "leaves 32px between the %s tabs and the panel",
+    (variant) => {
+      render(<Inbox variant={variant} />);
+
+      const panel = screen.getByRole("tabpanel").getBoundingClientRect();
+      expect(panel.top - tab("Emails").getBoundingClientRect().bottom).toBeCloseTo(32, 0);
+    },
+  );
+
   it("keeps a hidden panel hidden when a class sets its display", () => {
     const layout = document.createElement("style");
     layout.textContent = ".layout { display: flex; }";
