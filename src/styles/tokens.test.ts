@@ -32,7 +32,6 @@ describe("design tokens", () => {
         "--ds-font-size-body-m",
         "--ds-font-size-body-s",
         "--ds-font-weight-bold",
-        "--ds-font-weight-regular",
         "--ds-line-height-body",
         "--ds-space-0",
         "--ds-space-2xl",

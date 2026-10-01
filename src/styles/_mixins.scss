@@ -36,17 +36,19 @@ $breakpoint-mobile: 768px;
   outline-offset: var(--ds-focus-ring-offset);
 }
 
-// Figma text styles. Font weight is intentionally left out: in Figma the same
-// style is used with different weights, so components set it themselves.
+// Figma text styles, one to one: family, size, line height and weight (Body M
+// and Body S are both Bold in Figma). A new style in Figma means a new mixin.
 @mixin text-body-m {
   font-family: var(--ds-font-family-base);
   font-size: var(--ds-font-size-body-m);
+  font-weight: var(--ds-font-weight-bold);
   line-height: var(--ds-line-height-body);
 }
 
 @mixin text-body-s {
   font-family: var(--ds-font-family-base);
   font-size: var(--ds-font-size-body-s);
+  font-weight: var(--ds-font-weight-bold);
   line-height: var(--ds-line-height-body);
 }
 

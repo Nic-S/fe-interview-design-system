@@ -13,8 +13,7 @@ import "<design-system>/fonts"; // @fontsource-variable/inter, an optional peer 
 
 ## Text styles
 
-The Figma text styles are Sass mixins: `@include mixins.text-body-m` sets family, size and line height.
-The **weight is not part of the style**: in Figma the same style is used with different weights, so components set it themselves (tabs and badges use Bold).
+The Figma text styles are Sass mixins, one to one: `@include mixins.text-body-m` sets family, size, line height and weight, as the Figma style does (Body M and Body S are both Bold).
 
 <TextStyles />
 

@@ -13,7 +13,6 @@
   border-radius: var(--badge-radius);
   background: var(--badge-background);
   color: var(--ds-color-on-neutral);
-  font-weight: var(--ds-font-weight-bold);
   white-space: nowrap;
 
   @include mixins.mobile {

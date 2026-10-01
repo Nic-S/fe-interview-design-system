@@ -6,12 +6,7 @@ const TEXT_STYLES = [
   { name: "Body S", mixin: "text-body-s", size: "--ds-font-size-body-s" },
 ];
 
-const WEIGHTS = [
-  { name: "Regular", token: "--ds-font-weight-regular" },
-  { name: "Bold", token: "--ds-font-weight-bold" },
-];
-
-/** Figma text styles rendered with the tokens, one specimen per weight. */
+/** Figma text styles rendered with the tokens, as the mixins set them. */
 export function TextStyles() {
   return (
     <table className={styles.table}>
@@ -19,11 +14,7 @@ export function TextStyles() {
         <tr>
           <th scope="col">Text style</th>
           <th scope="col">Sass mixin</th>
-          {WEIGHTS.map((weight) => (
-            <th scope="col" key={weight.token}>
-              {weight.name}
-            </th>
-          ))}
+          <th scope="col">Specimen</th>
         </tr>
       </thead>
       <tbody>
@@ -33,21 +24,19 @@ export function TextStyles() {
             <td>
               <code className={styles.code}>@include mixins.{textStyle.mixin}</code>
             </td>
-            {WEIGHTS.map((weight) => (
-              <td key={weight.token}>
-                <p
-                  className={styles.specimen}
-                  style={{
-                    fontFamily: "var(--ds-font-family-base)",
-                    fontSize: `var(${textStyle.size})`,
-                    lineHeight: "var(--ds-line-height-body)",
-                    fontWeight: `var(${weight.token})`,
-                  }}
-                >
-                  Emails, Files, Warning
-                </p>
-              </td>
-            ))}
+            <td>
+              <p
+                className={styles.specimen}
+                style={{
+                  fontFamily: "var(--ds-font-family-base)",
+                  fontSize: `var(${textStyle.size})`,
+                  fontWeight: "var(--ds-font-weight-bold)",
+                  lineHeight: "var(--ds-line-height-body)",
+                }}
+              >
+                Emails, Files, Warning
+              </p>
+            </td>
           </tr>
         ))}
       </tbody>
