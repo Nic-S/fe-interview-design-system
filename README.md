@@ -2,7 +2,7 @@
 
 An accessible, reusable **Tabs** component with **Badge**, built as part of a small design system for the [home test](https://github.com/primait/fe-interview-design-system/blob/master/src/Introduction.mdx): React 19, SCSS Modules written from scratch, design tokens as CSS custom properties, no CSS framework and no headless library.
 
-- **Documentation:** Storybook (`pnpm storybook`): foundations, component guidelines, anatomy, tokens, keyboard and accessibility notes, interactive stories.
+- **Documentation:** [Storybook](https://nic-s.github.io/fe-interview-design-system/), published for each release (locally: `pnpm storybook`): foundations, component guidelines, anatomy, tokens, keyboard and accessibility notes, interactive stories.
 - **Design:** [Figma file](https://www.figma.com/design/OclakAGLSXDoMKLFvwLNMP/?node-id=47-678).
 - **Demo page:** `pnpm dev` shows the example of the Figma file.
 
@@ -70,7 +70,7 @@ Requirements: Node 24 (`.nvmrc`) and pnpm 11, through Corepack (`packageManager`
 │   └── main.tsx, main.css      # demo page
 ├── docs/                       # Storybook pages: Introduction, Foundations
 ├── .storybook/                 # Storybook configuration
-└── .github/                    # CI workflow, Dependabot
+└── .github/                    # CI and Storybook workflows, Dependabot
 ```
 
 ## Public API
