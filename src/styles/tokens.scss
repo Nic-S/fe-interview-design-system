@@ -5,7 +5,7 @@
 //
 // Color names mirror the Figma variables (e.g. `SurfaceHover` →
 // `--ds-color-surface-hover`) so design and code share the same vocabulary.
-// There is no primitive palette in the Figma file, so semantic tokens hold the
+// The Figma components use only semantic variables, so semantic tokens hold the
 // hex values directly.
 
 :root {

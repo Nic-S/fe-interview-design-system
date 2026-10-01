@@ -9,8 +9,8 @@ import { ContrastTable } from "./components/ContrastTable";
 Color tokens are **semantic**: the name says what a color is *for* (a surface, the content on it, an outline), not what it looks like.
 They use the same names as the Figma variables (`SurfaceHover` → `--ds-color-surface-hover`), so design and code share one vocabulary.
 
-The Figma file has no primitive palette, so the tokens hold the hex values directly.
-Different roles can share a value on purpose: `Inverse` and `OnNeutral` are both `#1b2134`, one as a background and one as text, so they can change independently.
+The Figma components use only semantic variables, so the tokens hold the hex values directly.
+Different roles can share a value: `Inverse` and `OnNeutral` are both `#1b2134`, one as a background and one as text, and each can change without the other.
 
 Everything on this page is read from the loaded stylesheet (`src/styles/tokens.scss`): adding a token there makes it appear here.
 
